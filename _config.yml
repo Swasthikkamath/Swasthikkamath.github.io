@@ -57,3 +57,7 @@ whitelist:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# Disqus Comments
+disqus_short_name: maneeshblogtest
+disqus_show_comment_count: false
