@@ -14,8 +14,7 @@ Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit number
 
 $$ J_{fwd} = I(Z_{t+1}; Z_t, A_t) $$
 
-`$$ J_{fwd} = I(Z_{t+1}; Z_t, A_t) $$`
-
+![alt test](test1.png)
 
 Jekyll also offers powerful support for code snippets:
 
