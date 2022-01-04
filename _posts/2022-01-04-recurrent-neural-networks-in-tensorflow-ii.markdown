@@ -19,7 +19,7 @@ $ S_t = \text{tanh}(W(X_t \ @ \ S_{t-1}) + b_s) $
 
 $ P_t = \text{softmax}(US_t + b_p) $
 
-where $ @ $ represents vector concatenation, $ X_t \in R^n # is an input vector, $ W \in R^{d \times (n + d)}, \  b_s \in R^d, \ U \in R^{n \times d} $ is the size of the input and output vectors, and d is the size of the hidden state vector. At time step 0, $ S_{-1} $ (the initial state) is initialized as a vector of zeros.
+where $ @ $ represents vector concatenation, $ X_t \in R^n $ is an input vector, $ W \in R^{d \times (n + d)}, \  b_s \in R^d, \ U \in R^{n \times d} $ is the size of the input and output vectors, and d is the size of the hidden state vector. At time step 0, $ S_{-1} $ (the initial state) is initialized as a vector of zeros.
 
 ### Task and data
 
