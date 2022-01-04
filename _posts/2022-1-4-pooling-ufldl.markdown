@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Pooling - UFLDL"
-date:   2021-12-28 12:45:34 +0530
+date:   2022-01-04 12:45:34 +0530
 categories: jekyll update
 ---
 

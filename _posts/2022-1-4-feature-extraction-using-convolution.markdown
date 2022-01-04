@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Feature Extraction Using Convolution - UFLDL"
-date:   2021-12-28 11:28:34 +0530
+date:   2022-01-04 11:28:34 +0530
 categories: jekyll update
 ---
 
