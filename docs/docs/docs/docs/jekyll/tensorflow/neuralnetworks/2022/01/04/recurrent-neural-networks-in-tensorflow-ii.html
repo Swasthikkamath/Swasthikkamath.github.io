@@ -26,6 +26,7 @@
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
 <link type="application/atom+xml" rel="alternate" href="https://aadikuchlous.github.io/feed.xml" title="Your awesome title">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -69,11 +70,11 @@
 
 <p>Here is the formal statement of our model from last time:</p>
 
-<p>(S_t = \text{tanh}(W(X_t \ @ \ S_{t-1}) + b_s))</p>
+<p>$ S_t = \text{tanh}(W(X_t \ @ \ S_{t-1}) + b_s) $</p>
 
-<p>(P_t = \text{softmax}(US_t + b_p))</p>
+<p>$ P_t = \text{softmax}(US_t + b_p) $</p>
 
-<p>where (@) represents vector concatenation, (X_t \in R^n) is an input vector, (W \in R^{d \times (n + d)}, \  b_s \in R^d, \ U \in R^{n \times d}) is the size of the input and output vectors, and d is the size of the hidden state vector. At time step 0, (S_{-1}) (the initial state) is initialized as a vector of zeros.</p>
+<p>where $ @ $ represents vector concatenation, $ X_t \in R^n # is an input vector, $ W \in R^{d \times (n + d)}, \  b_s \in R^d, \ U \in R^{n \times d} $ is the size of the input and output vectors, and d is the size of the hidden state vector. At time step 0, $ S_{-1} $ (the initial state) is initialized as a vector of zeros.</p>
 
 <h3 id="task-and-data">Task and data</h3>
 
