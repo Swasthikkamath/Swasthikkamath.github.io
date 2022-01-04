@@ -104,9 +104,9 @@ def train_network(g, num_epochs, num_steps = 200, batch_size = 32, verbose = Tru
     return training_losses
 {% endhighlight %}
 
-{% highlight python %}
+{% raw %}
 Data length: 1115394
-{% endhighlight %}
+{% endraw %}
 
 ### Using tf.scan and dynamic_rnn to speed things up
 
