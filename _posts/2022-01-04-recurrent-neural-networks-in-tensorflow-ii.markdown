@@ -112,9 +112,9 @@ Data length: 1115394
 
 Recall from [last post](https://r2rt.com/recurrent-neural-networks-in-tensorflow-i.html) that we represented each duplicate tensor of our RNN (e.g., the rnn inputs, rnn outputs, the predictions and the loss) as a list of tensors:
 
-<p align="center">
+{:refdef: style="text-align: center;"}
 ![](https://r2rt.com/static/images/BasicRNNLabeled.png)
-</p>
+{: refdef}
 
 This worked quite well for our toy task, because our longest dependency was 7 steps back and we never really needed to backpropagate errors more than 10 steps. Even with a word-level RNN, using lists will probably be sufficient. See, e.g., my post on [Styles of Truncated Backpropagation](http://r2rt.com/styles-of-truncated-backpropagation.html), where I build a 40-step graph with no problems. But for a character-level model, 40 characters isn’t a whole lot. We might want to capture much longer dependencies. So let’s see what happens when we build a graph that is 200 time steps wide:
 
