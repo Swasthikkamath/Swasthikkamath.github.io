@@ -14,7 +14,7 @@ To address this, first recall that we decided to obtain convolved features becau
 The following image shows how pooling is done over 4 non-overlapping regions of the image.
 
 {:refdef: style="text-align: center;"}
-![](http://ufldl.stanford.edu/tutorial/images/Convolution_schematic.gif)
+![](/assets/Pooling_schematic.gif)
 {: refdef}
 
 ### Pooling for Invariance

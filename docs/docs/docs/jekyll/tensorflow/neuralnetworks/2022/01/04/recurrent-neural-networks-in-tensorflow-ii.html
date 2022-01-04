@@ -84,7 +84,7 @@
 
 <p>To start, let’s create our data generator. We’ll use the tiny-shakespeare corpus as our data, though we could use any plain text file. We’ll choose to use all of the characters in the text file as our vocabulary, treating lowercase and capital letters are separate characters. In practice, there may be some advantage to forcing the network to use similar representations for capital and lowercase letters by using the same one-hot representations for each, plus a binary flag to indicate whether or not the letter is a capital. Additionally, it is likely a good idea to restrict the vocabulary (i.e., the set of characters) used, by replacing uncommon characters with an UNK token (like a square: □).</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
 Imports
 """</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
@@ -94,9 +94,10 @@ Imports
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="kn">from</span> <span class="nn">tensorflow.models.rnn.ptb</span> <span class="kn">import</span> <span class="n">reader</span></code></pre></figure>
+<span class="kn">from</span> <span class="nn">tensorflow.models.rnn.ptb</span> <span class="kn">import</span> <span class="n">reader</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
 Load and process data, utility functions
 """</span>
 
@@ -153,7 +154,8 @@ Load and process data, utility functions
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">save</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">g</span><span class="p">[</span><span class="s">'saver'</span><span class="p">].</span><span class="n">save</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">save</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">training_losses</span></code></pre></figure>
+    <span class="k">return</span> <span class="n">training_losses</span>
+</code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Data length: 1115394
 </code></pre></div></div>
@@ -166,7 +168,7 @@ Load and process data, utility functions
 
 <p>This worked quite well for our toy task, because our longest dependency was 7 steps back and we never really needed to backpropagate errors more than 10 steps. Even with a word-level RNN, using lists will probably be sufficient. See, e.g., my post on <a href="http://r2rt.com/styles-of-truncated-backpropagation.html">Styles of Truncated Backpropagation</a>, where I build a 40-step graph with no problems. But for a character-level model, 40 characters isn’t a whole lot. We might want to capture much longer dependencies. So let’s see what happens when we build a graph that is 200 time steps wide:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">build_basic_rnn_graph_with_list</span><span class="p">(</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_basic_rnn_graph_with_list</span><span class="p">(</span>
     <span class="n">state_size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">num_classes</span> <span class="o">=</span> <span class="n">vocab_size</span><span class="p">,</span>
     <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
@@ -204,19 +206,22 @@ Load and process data, utility functions
         <span class="n">final_state</span> <span class="o">=</span> <span class="n">final_state</span><span class="p">,</span>
         <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="p">,</span>
         <span class="n">train_step</span> <span class="o">=</span> <span class="n">train_step</span>
-    <span class="p">)</span></code></pre></figure>
+    <span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">build_basic_rnn_graph_with_list</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to build the graph."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to build the graph."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">5.626644849777222</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">build</span> <span class="n">the</span> <span class="n">graph</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 5.626644849777222 seconds to build the graph.
+</code></pre></div></div>
 
 <p>It took over 5 seconds to build the graph of the most basic RNN model! This could bad… what happens when we move up to a 3-layer LSTM?</p>
 
 <p>Below, we switch out the RNN cell for a Multi-layer LSTM cell. We’ll go over the details of how to do this in the next section.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">build_multilayer_lstm_graph_with_list</span><span class="p">(</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_multilayer_lstm_graph_with_list</span><span class="p">(</span>
     <span class="n">state_size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">num_classes</span> <span class="o">=</span> <span class="n">vocab_size</span><span class="p">,</span>
     <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
@@ -257,13 +262,16 @@ Load and process data, utility functions
         <span class="n">final_state</span> <span class="o">=</span> <span class="n">final_state</span><span class="p">,</span>
         <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="p">,</span>
         <span class="n">train_step</span> <span class="o">=</span> <span class="n">train_step</span>
-    <span class="p">)</span></code></pre></figure>
+    <span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">build_multilayer_lstm_graph_with_list</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to build the graph."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to build the graph."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">25.640846967697144</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">build</span> <span class="n">the</span> <span class="n">graph</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 25.640846967697144 seconds to build the graph.
+</code></pre></div></div>
 
 <p>Yikes, almost 30 seconds.</p>
 
@@ -271,7 +279,7 @@ Load and process data, utility functions
 
 <p>To get around this long compile time, Tensorflow allows us to create the graph at runtime. Here is a quick demonstration of the difference, using Tensorflow’s dynamic_rnn function:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">build_multilayer_lstm_graph_with_dynamic_rnn</span><span class="p">(</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_multilayer_lstm_graph_with_dynamic_rnn</span><span class="p">(</span>
     <span class="n">state_size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">num_classes</span> <span class="o">=</span> <span class="n">vocab_size</span><span class="p">,</span>
     <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
@@ -314,35 +322,42 @@ Load and process data, utility functions
         <span class="n">final_state</span> <span class="o">=</span> <span class="n">final_state</span><span class="p">,</span>
         <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="p">,</span>
         <span class="n">train_step</span> <span class="o">=</span> <span class="n">train_step</span>
-    <span class="p">)</span></code></pre></figure>
+    <span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">build_multilayer_lstm_graph_with_dynamic_rnn</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to build the graph."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to build the graph."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">0.5314393043518066</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">build</span> <span class="n">the</span> <span class="n">graph</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 0.5314393043518066 seconds to build the graph.
+</code></pre></div></div>
 
 <p>Much better. One would think that pushing the graph construction to execution time would cause execution of the graph to go slower, but in this case, using dynamic_rnn actually speeds things up:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_lstm_graph_with_list</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_lstm_graph_with_list</span><span class="p">()</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 3 epochs."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 3 epochs."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">0</span> <span class="p">:</span> <span class="mf">3.53323210245</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">1</span> <span class="p">:</span> <span class="mf">3.31435756163</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">2</span> <span class="p">:</span> <span class="mf">3.21755325109</span>
-<span class="n">It</span> <span class="n">took</span> <span class="mf">117.78161263465881</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">3</span> <span class="n">epochs</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Average training loss for Epoch 0 : 3.53323210245
+Average training loss for Epoch 1 : 3.31435756163
+Average training loss for Epoch 2 : 3.21755325109
+It took 117.78161263465881 seconds to train for 3 epochs.
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_lstm_graph_with_dynamic_rnn</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_lstm_graph_with_dynamic_rnn</span><span class="p">()</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 3 epochs."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 3 epochs."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">0</span> <span class="p">:</span> <span class="mf">3.55792756053</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">1</span> <span class="p">:</span> <span class="mf">3.3225021006</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">2</span> <span class="p">:</span> <span class="mf">3.28286816745</span>
-<span class="n">It</span> <span class="n">took</span> <span class="mf">96.69413661956787</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">3</span> <span class="n">epochs</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Average training loss for Epoch 0 : 3.55792756053
+Average training loss for Epoch 1 : 3.3225021006
+Average training loss for Epoch 2 : 3.28286816745
+It took 96.69413661956787 seconds to train for 3 epochs.
+</code></pre></div></div>
 
 <p>It’s not a breeze to work through and understand the dynamic_rnn code (which lives <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py">here</a>), but we can obtain a similar result ourselves by using tf.scan (dynamic_rnn does not use scan). Scan runs just a tad slower than Tensorflow’s optimized code, but is easier to understand and write yourself.</p>
 
@@ -352,7 +367,7 @@ Load and process data, utility functions
 
 <p>Another thing to note is that scan produces rnn_outputs with shape [num_steps, batch_size, state_size], whereas the dynamic_rnn produces rnn_outputs with shape [batch_size, num_steps, state_size] (the first two dimensions are switched). Dynamic_rnn has the flexibility to switch this behavior, using the “time_major” argument. Tf.scan does not have this flexibility, which is why we transpose <code class="language-plaintext highlighter-rouge">rnn_inputs</code> and <code class="language-plaintext highlighter-rouge">y</code> in the code below.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">build_multilayer_lstm_graph_with_scan</span><span class="p">(</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_multilayer_lstm_graph_with_scan</span><span class="p">(</span>
     <span class="n">state_size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">num_classes</span> <span class="o">=</span> <span class="n">vocab_size</span><span class="p">,</span>
     <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
@@ -402,20 +417,23 @@ Load and process data, utility functions
         <span class="n">final_state</span> <span class="o">=</span> <span class="n">final_state</span><span class="p">,</span>
         <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="p">,</span>
         <span class="n">train_step</span> <span class="o">=</span> <span class="n">train_step</span>
-    <span class="p">)</span></code></pre></figure>
+    <span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_lstm_graph_with_scan</span><span class="p">()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to build the graph."</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 3 epochs."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 3 epochs."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">0.6475389003753662</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">build</span> <span class="n">the</span> <span class="n">graph</span><span class="p">.</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">0</span> <span class="p">:</span> <span class="mf">3.55362293501</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">1</span> <span class="p">:</span> <span class="mf">3.32045680079</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">2</span> <span class="p">:</span> <span class="mf">3.27433713688</span>
-<span class="n">It</span> <span class="n">took</span> <span class="mf">101.60246014595032</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">3</span> <span class="n">epochs</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 0.6475389003753662 seconds to build the graph.
+Average training loss for Epoch 0 : 3.55362293501
+Average training loss for Epoch 1 : 3.32045680079
+Average training loss for Epoch 2 : 3.27433713688
+It took 101.60246014595032 seconds to train for 3 epochs.
+</code></pre></div></div>
 
 <p>Using scan was only marginally slower than using dynamic_rnn, and gives us the flexibility and understanding to tweak the code if we ever need to (e.g., if for some reason we wanted to create a skip connection from the state at timestep t-2 to timestep t, it would be easy to do with scan).</p>
 
@@ -429,19 +447,23 @@ Load and process data, utility functions
 
 <p>All we have to do to upgrade our vanilla RNN cell is to replace this line:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">BasicRNNCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">BasicRNNCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>with this for LSTM:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>or this for GRU:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">GRUCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">GRUCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>The LSTM keeps two sets of internal state vectors, $ c $ (for memory cell or constant error carousel) and $ h $ (for hidden state). By default, they are concatenated into a single vector, but as of this writing, using the default arguments to LSTMCell will produce a warning message:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">WARNING</span><span class="p">:</span><span class="n">tensorflow</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tensorflow</span><span class="p">.</span><span class="n">python</span><span class="p">.</span><span class="n">ops</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMCell</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7faade1708d0</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Using</span> <span class="n">a</span> <span class="n">concatenated</span> <span class="n">state</span> <span class="ow">is</span> <span class="n">slower</span> <span class="ow">and</span> <span class="n">will</span> <span class="n">soon</span> <span class="n">be</span> <span class="n">deprecated</span><span class="p">.</span>  <span class="n">Use</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WARNING:tensorflow:&lt;tensorflow.python.ops.rnn_cell.LSTMCell object at 0x7faade1708d0&gt;: Using a concatenated state is slower and will soon be deprecated.  Use state_is_tuple=True.
+</code></pre></div></div>
 
 <p>This error tells us that it’s faster to represent the LSTM state as a tuple of $ c $ and $ h $, rather than as a concatenation of $ c $ and $ h $. You can tack on the argument <code class="language-plaintext highlighter-rouge">state_is_tuple=True</code> to have it do that.</p>
 
@@ -459,7 +481,8 @@ Load and process data, utility functions
 
 <p>To make this switch, we call <code class="language-plaintext highlighter-rouge">tf.nn.rnn_cell.MultiRNNCell</code>, which takes a list of RNNCells as its inputs and wraps them into a single cell:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">MultiRNNCell</span><span class="p">([</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">BasicRNNCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)]</span> <span class="o">*</span> <span class="n">num_layers</span><span class="p">)</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">MultiRNNCell</span><span class="p">([</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">BasicRNNCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">)]</span> <span class="o">*</span> <span class="n">num_layers</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Note that if you are wrapping an LSTMCell that uses <code class="language-plaintext highlighter-rouge">state_is_tuple=True</code>, you should pass this same argument to the MultiRNNCell as well.</p>
 
@@ -469,7 +492,7 @@ Load and process data, utility functions
 
 <p>To write the custom cell, we need to extend tf.nn.rnn_cell.RNNCell. Specifically, we need to fill in 3 abstract methods and write an <code class="language-plaintext highlighter-rouge">__init__</code> method (take a look at the Tensorflow code <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py">here</a>). First, let’s start with a GRU cell, adapted from Tensorflow’s implementation:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">GRUCell</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">RNNCell</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">GRUCell</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">RNNCell</span><span class="p">):</span>
     <span class="s">"""Gated Recurrent Unit cell (cf. http://arxiv.org/abs/1406.1078)."""</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_units</span><span class="p">):</span>
@@ -495,17 +518,19 @@ Load and process data, utility functions
                 <span class="n">c</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">_linear</span><span class="p">([</span><span class="n">inputs</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span> <span class="n">state</span><span class="p">],</span>
                                              <span class="bp">self</span><span class="p">.</span><span class="n">_num_units</span><span class="p">,</span> <span class="bp">True</span><span class="p">))</span>
             <span class="n">new_h</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="n">state</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span>
-        <span class="k">return</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">new_h</span></code></pre></figure>
+        <span class="k">return</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">new_h</span>
+</code></pre></div></div>
 
 <p>We modify the <code class="language-plaintext highlighter-rouge">__init__</code> method to take a parameter n at initialization, which will determine the number of transformation matrices $ W_i $ it will create:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_units</span><span class="p">,</span> <span class="n">num_weights</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_units</span><span class="p">,</span> <span class="n">num_weights</span><span class="p">):</span>
     <span class="bp">self</span><span class="p">.</span><span class="n">_num_units</span> <span class="o">=</span> <span class="n">num_units</span>
-    <span class="bp">self</span><span class="p">.</span><span class="n">_num_weights</span> <span class="o">=</span> <span class="n">num_weights</span></code></pre></figure>
+    <span class="bp">self</span><span class="p">.</span><span class="n">_num_weights</span> <span class="o">=</span> <span class="n">num_weights</span>
+</code></pre></div></div>
 
 <p>Then, we modify the <code class="language-plaintext highlighter-rouge">Candidate</code> variable scope of the <code class="language-plaintext highlighter-rouge">__call__</code> method to do a weighted average as shown below (note that all of the $ W_i $ matrices are created as a single variable and then split into multiple tensors):</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">CustomCell</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">RNNCell</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CustomCell</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">RNNCell</span><span class="p">):</span>
     <span class="s">"""Gated Recurrent Unit cell (cf. http://arxiv.org/abs/1406.1078)."""</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_units</span><span class="p">,</span> <span class="n">num_weights</span><span class="p">):</span>
@@ -546,11 +571,12 @@ Load and process data, utility functions
                 <span class="n">c</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">Wx</span> <span class="o">+</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">_linear</span><span class="p">([</span><span class="n">r</span> <span class="o">*</span> <span class="n">state</span><span class="p">],</span>
                                             <span class="bp">self</span><span class="p">.</span><span class="n">_num_units</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s">"second"</span><span class="p">))</span>
             <span class="n">new_h</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="n">state</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span>
-        <span class="k">return</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">new_h</span></code></pre></figure>
+        <span class="k">return</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">new_h</span>
+</code></pre></div></div>
 
 <p>Let’s see how the custom cell stacks up to a regular GRU cell (using <code class="language-plaintext highlighter-rouge">num_steps = 30</code>, since this performs much better than <code class="language-plaintext highlighter-rouge">num_steps = 200</code> after 5 epochs – can you see why that might happen?):</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">build_multilayer_graph_with_custom_cell</span><span class="p">(</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_multilayer_graph_with_custom_cell</span><span class="p">(</span>
     <span class="n">cell_type</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
     <span class="n">num_weights_for_custom_cell</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="n">state_size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
@@ -606,31 +632,36 @@ Load and process data, utility functions
         <span class="n">final_state</span> <span class="o">=</span> <span class="n">final_state</span><span class="p">,</span>
         <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="p">,</span>
         <span class="n">train_step</span> <span class="o">=</span> <span class="n">train_step</span>
-    <span class="p">)</span></code></pre></figure>
+    <span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_graph_with_custom_cell</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_graph_with_custom_cell</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 5 epochs."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 5 epochs."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">0</span> <span class="p">:</span> <span class="mf">2.92919953048</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">1</span> <span class="p">:</span> <span class="mf">2.35888109404</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">2</span> <span class="p">:</span> <span class="mf">2.21945820894</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">3</span> <span class="p">:</span> <span class="mf">2.12258511006</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">4</span> <span class="p">:</span> <span class="mf">2.05038544733</span>
-<span class="n">It</span> <span class="n">took</span> <span class="mf">284.6971204280853</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">5</span> <span class="n">epochs</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Average training loss for Epoch 0 : 2.92919953048
+Average training loss for Epoch 1 : 2.35888109404
+Average training loss for Epoch 2 : 2.21945820894
+Average training loss for Epoch 3 : 2.12258511006
+Average training loss for Epoch 4 : 2.05038544733
+It took 284.6971204280853 seconds to train for 5 epochs.
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_graph_with_custom_cell</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'Custom'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_multilayer_graph_with_custom_cell</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'Custom'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 5 epochs."</span><span class="p">)</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 5 epochs."</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">0</span> <span class="p">:</span> <span class="mf">3.04418995892</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">1</span> <span class="p">:</span> <span class="mf">2.5172702761</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">2</span> <span class="p">:</span> <span class="mf">2.37068433601</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">3</span> <span class="p">:</span> <span class="mf">2.27533404217</span>
-<span class="n">Average</span> <span class="n">training</span> <span class="n">loss</span> <span class="k">for</span> <span class="n">Epoch</span> <span class="mi">4</span> <span class="p">:</span> <span class="mf">2.20167231745</span>
-<span class="n">It</span> <span class="n">took</span> <span class="mf">537.6112766265869</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">5</span> <span class="n">epochs</span><span class="p">.</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Average training loss for Epoch 0 : 3.04418995892
+Average training loss for Epoch 1 : 2.5172702761
+Average training loss for Epoch 2 : 2.37068433601
+Average training loss for Epoch 3 : 2.27533404217
+Average training loss for Epoch 4 : 2.20167231745
+It took 537.6112766265869 seconds to train for 5 epochs.
+</code></pre></div></div>
 
 <p>So much for that idea. Our custom cell took almost twice as long to train and seems to perform worse than a standard GRU cell.</p>
 
@@ -642,26 +673,30 @@ Load and process data, utility functions
 
 <p>Thus, to apply dropout, we need to wrap the input and/or output of <em>each</em> cell. In our RNN implementation using list, we might do something like this:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">rnn_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_input</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span> <span class="k">for</span> <span class="n">rnn_input</span> <span class="ow">in</span> <span class="n">rnn_inputs</span><span class="p">]</span>
-<span class="n">rnn_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_output</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span> <span class="k">for</span> <span class="n">nn_output</span> <span class="ow">in</span> <span class="n">rnn_outputs</span><span class="p">]</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rnn_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_input</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span> <span class="k">for</span> <span class="n">rnn_input</span> <span class="ow">in</span> <span class="n">rnn_inputs</span><span class="p">]</span>
+<span class="n">rnn_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_output</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span> <span class="k">for</span> <span class="n">nn_output</span> <span class="ow">in</span> <span class="n">rnn_outputs</span><span class="p">]</span>
+</code></pre></div></div>
 
 <p>In our dynamic_rnn or scan implementations, we might apply dropout directly to the rnn_inputs or rnn_outputs:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">rnn_inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_inputd</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
-<span class="n">rnn_outputs</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_outputd</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rnn_inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_inputd</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
+<span class="n">rnn_outputs</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">rnn_outputd</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>But what happens when we use <code class="language-plaintext highlighter-rouge">MultiRNNCell</code>? How can we have dropout in between layers like in Zaremba et al. (2015)? The answer is to wrap our base RNN cell with dropout, thereby including it as part of the base cell, similar to how we wrapped our three RNN cells into a single MultiRNNCell above. Tensorflow allows us to do this without writing a new RNNCell by using <code class="language-plaintext highlighter-rouge">tf.nn.rnn_cell.DropoutWrapper</code>:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">,</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">,</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">DropoutWrapper</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">input_keep_prob</span><span class="o">=</span><span class="n">input_dropout</span><span class="p">,</span> <span class="n">output_keep_prob</span><span class="o">=</span><span class="n">output_dropout</span><span class="p">)</span>
-<span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">MultiRNNCell</span><span class="p">([</span><span class="n">cell</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></figure>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">MultiRNNCell</span><span class="p">([</span><span class="n">cell</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Note that if we wrap a base cell with dropout and then use it to build a MultiRNNCell, both input dropout and output dropout will be applied between layers (so if both are, say, $ 0.9 $, the dropout in between layers will be $ 0.9 * 0.9 = 0.81 $). If we want equal dropout on all inputs and outputs of a multi-layered RNN, we can use only output or input dropout on the base cell, and then wrap the entire MultiRNNCell with the input or output dropout like so:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">,</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">state_size</span><span class="p">,</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">DropoutWrapper</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">input_keep_prob</span><span class="o">=</span><span class="n">global_dropout</span><span class="p">)</span>
 <span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">MultiRNNCell</span><span class="p">([</span><span class="n">cell</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">state_is_tuple</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">DropoutWrapper</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">output_keep_prob</span><span class="o">=</span><span class="n">global_dropout</span><span class="p">)</span></code></pre></figure>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">DropoutWrapper</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">output_keep_prob</span><span class="o">=</span><span class="n">global_dropout</span><span class="p">)</span>
+</code></pre></div></div>
 
 <h3 id="layer-normalization">Layer normalization</h3>
 
@@ -677,7 +712,7 @@ $$</p>
 
 <p>To add layer normalization to our network, we first write a function that will layer normalization a 2D tensor along its second dimension:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">ln</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">scope</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">ln</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">scope</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">):</span>
     <span class="s">""" Layer normalizes a 2D tensor along its second axis """</span>
     <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor</span><span class="p">.</span><span class="n">get_shape</span><span class="p">())</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">moments</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">keep_dims</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -692,11 +727,12 @@ $$</p>
                                 <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="n">constant_initializer</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
     <span class="n">LN_initial</span> <span class="o">=</span> <span class="p">(</span><span class="n">tensor</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span> <span class="o">/</span> <span class="n">tf</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">LN_initial</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">+</span> <span class="n">shift</span></code></pre></figure>
+    <span class="k">return</span> <span class="n">LN_initial</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">+</span> <span class="n">shift</span>
+</code></pre></div></div>
 
 <p>Let’s apply it our layer normalization function as it was applied by Lei Ba et al. (2016) to LSTMs (in their experiments “Teaching machines to read and comprehend” and “Handwriting sequence generation”). Lei Ba et al. apply layer normalization to the output of each gate inside the LSTM cell, which means that we get to take a second shot at writing a new type of RNN cell. We’ll start with Tensorflow’s official code, located <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py">here</a>, and modify it accordingly:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">LayerNormalizedLSTMCell</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">RNNCell</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">LayerNormalizedLSTMCell</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">RNNCell</span><span class="p">):</span>
     <span class="s">"""
     Adapted from TF's BasicLSTMCell to use Layer Normalization.
     Note that state_is_tuple is always True.
@@ -738,14 +774,15 @@ $$</p>
 </span>            <span class="n">new_h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_activation</span><span class="p">(</span><span class="n">ln</span><span class="p">(</span><span class="n">new_c</span><span class="p">,</span> <span class="n">scope</span> <span class="o">=</span> <span class="s">'new_h/'</span><span class="p">))</span> <span class="o">*</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
             <span class="n">new_state</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">rnn_cell</span><span class="p">.</span><span class="n">LSTMStateTuple</span><span class="p">(</span><span class="n">new_c</span><span class="p">,</span> <span class="n">new_h</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">new_state</span></code></pre></figure>
+            <span class="k">return</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">new_state</span>
+</code></pre></div></div>
 
 <p>And that’s it! Let’s try this out.</p>
 
 <h3 id="final-model">Final model</h3>
 <p>At this point, we’ve covered all of the graph modifications we planned to cover, so here is our final model, which allows for dropout and layer normalized LSTM cells:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">build_graph</span><span class="p">(</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_graph</span><span class="p">(</span>
     <span class="n">cell_type</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
     <span class="n">num_weights_for_custom_cell</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="n">state_size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
@@ -816,36 +853,43 @@ $$</p>
         <span class="n">train_step</span> <span class="o">=</span> <span class="n">train_step</span><span class="p">,</span>
         <span class="n">preds</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">,</span>
         <span class="n">saver</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">train</span><span class="p">.</span><span class="n">Saver</span><span class="p">()</span>
-    <span class="p">)</span></code></pre></figure>
+    <span class="p">)</span>
+</code></pre></div></div>
 
 <p>Let’s compare the GRU, LSTM and LN_LSTM after training each for 20 epochs using 80 step sequences.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">losses</span> <span class="o">=</span> <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s">"saves/GRU_20_epochs"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 20 epochs."</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">1051.6652357578278</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">20</span> <span class="n">epochs</span><span class="p">.</span>
-<span class="n">The</span> <span class="n">average</span> <span class="n">loss</span> <span class="n">on</span> <span class="n">the</span> <span class="n">final</span> <span class="n">epoch</span> <span class="n">was</span><span class="p">:</span> <span class="mf">1.75318197903</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 1051.6652357578278 seconds to train for 20 epochs.
+The average loss on the final epoch was: 1.75318197903
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'LSTM'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'LSTM'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">losses</span> <span class="o">=</span> <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s">"saves/LSTM_20_epochs"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 20 epochs."</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">614.4890048503876</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">20</span> <span class="n">epochs</span><span class="p">.</span>
-<span class="n">The</span> <span class="n">average</span> <span class="n">loss</span> <span class="n">on</span> <span class="n">the</span> <span class="n">final</span> <span class="n">epoch</span> <span class="n">was</span><span class="p">:</span> <span class="mf">2.02813237837</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 614.4890048503876 seconds to train for 20 epochs.
+The average loss on the final epoch was: 2.02813237837
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'LN_LSTM'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'LN_LSTM'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">losses</span> <span class="o">=</span> <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s">"saves/LN_LSTM_20_epochs"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 20 epochs."</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">3867.550405740738</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">20</span> <span class="n">epochs</span><span class="p">.</span>
-<span class="n">The</span> <span class="n">average</span> <span class="n">loss</span> <span class="n">on</span> <span class="n">the</span> <span class="n">final</span> <span class="n">epoch</span> <span class="n">was</span><span class="p">:</span> <span class="mf">1.71850851623</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 3867.550405740738 seconds to train for 20 epochs.
+The average loss on the final epoch was: 1.71850851623
+</code></pre></div></div>
 
 <p>It looks like the layer normalized LSTM just managed to edge out the GRU in the last few epochs, though the increase in training time hardly seems worth it (perhaps my implementation could be improved?). It would be interesting to see how they would perform on a validation or test set and also to try out a layer normalized GRU. For now, let’s use the GRU to generate some text.</p>
 
@@ -853,7 +897,7 @@ $$</p>
 
 <p>To generate text, were going to rebuild the graph so as to accept a single character at a time and restore our saved model. We’ll give the network a single character prompt, grab its predicted probability distribution for the next character, use that distribution to pick the next character, and repeat. When picking the next character, our <code class="language-plaintext highlighter-rouge">generate_characters</code> function can be set to use the whole probability distribution (default), or be forced to pick one of the top n most likely characters in the distribution. The latter option should obtain more English-like results.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">generate_characters</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">,</span> <span class="n">num_chars</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">pick_top_chars</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">generate_characters</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">,</span> <span class="n">num_chars</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">pick_top_chars</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="s">""" Accepts a current character, initial state"""</span>
 
     <span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
@@ -884,37 +928,40 @@ $$</p>
 
     <span class="n">chars</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">idx_to_vocab</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">chars</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">))</span>
-    <span class="k">return</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">))</span></code></pre></figure>
+    <span class="k">return</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">))</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'LN_LSTM'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">generate_characters</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s">"saves/LN_LSTM_20_epochs"</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">pick_top_chars</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'LN_LSTM'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">generate_characters</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s">"saves/LN_LSTM_20_epochs"</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">pick_top_chars</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">ATOOOS</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ATOOOS
 
- <span class="n">UIEAOUYOUZZZZZZUZAAAYAYf</span> <span class="n">n</span> <span class="n">fsflflrurctuateot</span> <span class="n">t</span> <span class="n">ta</span><span class="s">'s  a  wtutss ESGNANO:
+ UIEAOUYOUZZZZZZUZAAAYAYf n fsflflrurctuateot t ta's  a  wtutss ESGNANO:
 Whith then, a do makes and them and to sees,
 I wark on this ance may string take thou honon
 To sorriccorn of the bairer, whither, all
-I'</span><span class="n">d</span> <span class="n">see</span> <span class="k">if</span> <span class="n">yiust</span> <span class="n">the</span> <span class="n">would</span> <span class="n">a</span> <span class="n">peid</span><span class="p">.</span>
+I'd see if yiust the would a peid.
 
-<span class="n">LARYNGLe</span><span class="p">:</span>
-<span class="n">To</span> <span class="n">would</span> <span class="n">she</span> <span class="n">troust</span> <span class="n">they</span> <span class="n">fould</span><span class="p">.</span>
+LARYNGLe:
+To would she troust they fould.
 
-<span class="n">PENMES</span><span class="p">:</span>
-<span class="n">Thou</span> <span class="n">she</span> <span class="n">so</span> <span class="n">the</span> <span class="n">havin</span> <span class="n">to</span> <span class="n">my</span> <span class="n">shald</span> <span class="n">woust</span> <span class="n">of</span>
-<span class="n">As</span> <span class="n">tale</span> <span class="n">we</span> <span class="n">they</span> <span class="nb">all</span> <span class="n">my</span> <span class="n">forder</span> <span class="n">have</span>
-<span class="n">As</span> <span class="n">to</span> <span class="n">say</span> <span class="n">heant</span> <span class="n">thy</span> <span class="n">wansing</span> <span class="n">thag</span> <span class="ow">and</span>
-<span class="n">Whis</span> <span class="n">it</span> <span class="n">thee</span> <span class="n">shath</span> <span class="n">his</span> <span class="n">breact</span><span class="p">,</span> <span class="n">I</span> <span class="n">be</span> <span class="ow">and</span> <span class="n">might</span><span class="p">,</span> <span class="n">she</span>
-<span class="n">Tirs</span> <span class="n">you</span> <span class="n">desarvishensed</span> <span class="ow">and</span> <span class="n">see</span> <span class="n">thee</span><span class="p">:</span> <span class="n">shall</span><span class="p">,</span>
-<span class="n">What</span> <span class="n">he</span> <span class="n">hath</span> <span class="k">with</span> <span class="n">that</span> <span class="ow">is</span> <span class="nb">all</span> <span class="n">time</span><span class="p">,</span>
-<span class="n">And</span> <span class="n">sen</span> <span class="n">the</span> <span class="n">have</span> <span class="n">would</span> <span class="n">be</span> <span class="n">sectiens</span><span class="p">,</span> <span class="n">way</span> <span class="n">thee</span><span class="p">,</span>
-<span class="n">They</span> <span class="n">are</span> <span class="n">there</span> <span class="n">to</span> <span class="n">man</span> <span class="n">shall</span> <span class="k">with</span> <span class="n">me</span> <span class="n">to</span> <span class="n">the</span> <span class="n">mon</span><span class="p">,</span>
-<span class="n">And</span> <span class="n">mere</span> <span class="n">fear</span> <span class="n">would</span> <span class="n">be</span> <span class="n">the</span> <span class="n">balte</span><span class="p">,</span> <span class="k">as</span> <span class="n">time</span> <span class="n">an</span> <span class="n">at</span>
-<span class="n">And</span> <span class="n">the</span> <span class="n">say</span> <span class="n">oun</span> <span class="n">touth</span><span class="p">,</span> <span class="n">thy</span> <span class="n">way</span> <span class="n">womers</span> <span class="n">thee</span><span class="p">.</span></code></pre></figure>
+PENMES:
+Thou she so the havin to my shald woust of
+As tale we they all my forder have
+As to say heant thy wansing thag and
+Whis it thee shath his breact, I be and might, she
+Tirs you desarvishensed and see thee: shall,
+What he hath with that is all time,
+And sen the have would be sectiens, way thee,
+They are there to man shall with me to the mon,
+And mere fear would be the balte, as time an at
+And the say oun touth, thy way womers thee.
+</code></pre></div></div>
 
 <p>You can see that this network has learned something. It’s definitely not random, though there is a bit of a warm up at the beginning (the state starts at 0). I was expecting something a bit better, however, given <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/#shakespeare">Karpathy’s Shakespeare results</a>. His model used more data, a state_size of 512, and was trained quite a bit longer than this one. Let’s see if we can match that. I couldn’t find a suitable premade dataset, so I had to make one myself: I concatenated the scripts from the Star Wars movies, the Star Trek movies, Tarantino and the Matrix. The final file size is 3.3MB, which is a bit smaller than the full works of William Shakespeare. Let’s load these up and try this again, with a larger state size:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
 Load new data
 """</span>
 
@@ -934,11 +981,13 @@ Load new data
 <span class="n">vocab_to_idx</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">idx_to_vocab</span><span class="p">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">idx_to_vocab</span><span class="p">.</span><span class="n">keys</span><span class="p">()))</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">vocab_to_idx</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">raw_data</span><span class="p">]</span>
-<span class="k">del</span> <span class="n">raw_data</span></code></pre></figure>
+<span class="k">del</span> <span class="n">raw_data</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Data</span> <span class="n">length</span><span class="p">:</span> <span class="mi">3299132</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Data length: 3299132
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span>
                 <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
                 <span class="n">state_size</span> <span class="o">=</span> <span class="mi">512</span><span class="p">,</span>
                 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
@@ -947,15 +996,18 @@ Load new data
 <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">losses</span> <span class="o">=</span> <span class="n">train_network</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s">"saves/GRU_30_epochs_variousscripts"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"It took"</span><span class="p">,</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="s">"seconds to train for 30 epochs."</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></code></pre></figure>
+<span class="k">print</span><span class="p">(</span><span class="s">"The average loss on the final epoch was:"</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">It</span> <span class="n">took</span> <span class="mf">4877.8002140522</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">train</span> <span class="k">for</span> <span class="mi">30</span> <span class="n">epochs</span><span class="p">.</span>
-<span class="n">The</span> <span class="n">average</span> <span class="n">loss</span> <span class="n">on</span> <span class="n">the</span> <span class="n">final</span> <span class="n">epoch</span> <span class="n">was</span><span class="p">:</span> <span class="mf">0.726858645461</span></code></pre></figure>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>It took 4877.8002140522 seconds to train for 30 epochs.
+The average loss on the final epoch was: 0.726858645461
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">state_size</span> <span class="o">=</span> <span class="mi">512</span><span class="p">)</span>
-<span class="n">generate_characters</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s">"saves/GRU_30_epochs_variousscripts"</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s">'D'</span><span class="p">,</span> <span class="n">pick_top_chars</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></code></pre></figure>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">cell_type</span><span class="o">=</span><span class="s">'GRU'</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">state_size</span> <span class="o">=</span> <span class="mi">512</span><span class="p">)</span>
+<span class="n">generate_characters</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s">"saves/GRU_30_epochs_variousscripts"</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s">'D'</span><span class="p">,</span> <span class="n">pick_top_chars</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">DENT</span><span class="s">'SUEENCK
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DENT'SUEENCK
 
 Bartholomew of the TIE FIGHTERS are stunned. There is a crowd and armored
 switcheroos.
@@ -974,7 +1026,8 @@ ENGINEER
 Naboo from an army seventy medical
 security team area re-weilergular.
 
-EXT.</span></code></pre></figure>
+EXT.
+</code></pre></div></div>
 
 <p>Not sure these are that much better than before, but it’s sort of readable?</p>
 
