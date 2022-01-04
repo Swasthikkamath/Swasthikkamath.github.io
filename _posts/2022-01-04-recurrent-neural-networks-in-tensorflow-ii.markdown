@@ -29,7 +29,7 @@ Why do something that’s already been done? Well, this is a much harder task th
 
 To start, let’s create our data generator. We’ll use the tiny-shakespeare corpus as our data, though we could use any plain text file. We’ll choose to use all of the characters in the text file as our vocabulary, treating lowercase and capital letters are separate characters. In practice, there may be some advantage to forcing the network to use similar representations for capital and lowercase letters by using the same one-hot representations for each, plus a binary flag to indicate whether or not the letter is a capital. Additionally, it is likely a good idea to restrict the vocabulary (i.e., the set of characters) used, by replacing uncommon characters with an UNK token (like a square: □).
 
-{% highlight python %}
+```python
 """
 Imports
 """
@@ -41,9 +41,9 @@ import time
 import os
 import urllib.request
 from tensorflow.models.rnn.ptb import reader
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 """
 Load and process data, utility functions
 """
@@ -102,7 +102,7 @@ def train_network(g, num_epochs, num_steps = 200, batch_size = 32, verbose = Tru
             g['saver'].save(sess, save)
 
     return training_losses
-{% endhighlight %}
+```
 
 ```
 Data length: 1115394
@@ -118,7 +118,7 @@ Recall from [last post](https://r2rt.com/recurrent-neural-networks-in-tensorflow
 
 This worked quite well for our toy task, because our longest dependency was 7 steps back and we never really needed to backpropagate errors more than 10 steps. Even with a word-level RNN, using lists will probably be sufficient. See, e.g., my post on [Styles of Truncated Backpropagation](http://r2rt.com/styles-of-truncated-backpropagation.html), where I build a 40-step graph with no problems. But for a character-level model, 40 characters isn’t a whole lot. We might want to capture much longer dependencies. So let’s see what happens when we build a graph that is 200 time steps wide:
 
-{% highlight python %}
+```python
 def build_basic_rnn_graph_with_list(
     state_size = 100,
     num_classes = vocab_size,
@@ -158,23 +158,23 @@ def build_basic_rnn_graph_with_list(
         total_loss = total_loss,
         train_step = train_step
     )
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 t = time.time()
 build_basic_rnn_graph_with_list()
 print("It took", time.time() - t, "seconds to build the graph.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 5.626644849777222 seconds to build the graph.
-{% endhighlight %}
+```
 
 It took over 5 seconds to build the graph of the most basic RNN model! This could bad… what happens when we move up to a 3-layer LSTM?
 
 Below, we switch out the RNN cell for a Multi-layer LSTM cell. We’ll go over the details of how to do this in the next section.
 
-{% highlight python %}
+```python
 def build_multilayer_lstm_graph_with_list(
     state_size = 100,
     num_classes = vocab_size,
@@ -217,17 +217,17 @@ def build_multilayer_lstm_graph_with_list(
         total_loss = total_loss,
         train_step = train_step
     )
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 t = time.time()
 build_multilayer_lstm_graph_with_list()
 print("It took", time.time() - t, "seconds to build the graph.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 25.640846967697144 seconds to build the graph.
-{% endhighlight %}
+```
 
 Yikes, almost 30 seconds.
 
@@ -235,7 +235,7 @@ Now this isn’t that big of an issue for training, because we only need to buil
 
 To get around this long compile time, Tensorflow allows us to create the graph at runtime. Here is a quick demonstration of the difference, using Tensorflow’s dynamic_rnn function:
 
-{% highlight python %}
+```python
 def build_multilayer_lstm_graph_with_dynamic_rnn(
     state_size = 100,
     num_classes = vocab_size,
@@ -280,47 +280,47 @@ def build_multilayer_lstm_graph_with_dynamic_rnn(
         total_loss = total_loss,
         train_step = train_step
     )
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 t = time.time()
 build_multilayer_lstm_graph_with_dynamic_rnn()
 print("It took", time.time() - t, "seconds to build the graph.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 0.5314393043518066 seconds to build the graph.
-{% endhighlight %}
+```
 
 Much better. One would think that pushing the graph construction to execution time would cause execution of the graph to go slower, but in this case, using dynamic_rnn actually speeds things up:
 
-{% highlight python %}
+```python
 g = build_multilayer_lstm_graph_with_list()
 t = time.time()
 train_network(g, 3)
 print("It took", time.time() - t, "seconds to train for 3 epochs.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 Average training loss for Epoch 0 : 3.53323210245
 Average training loss for Epoch 1 : 3.31435756163
 Average training loss for Epoch 2 : 3.21755325109
 It took 117.78161263465881 seconds to train for 3 epochs.
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_multilayer_lstm_graph_with_dynamic_rnn()
 t = time.time()
 train_network(g, 3)
 print("It took", time.time() - t, "seconds to train for 3 epochs.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 Average training loss for Epoch 0 : 3.55792756053
 Average training loss for Epoch 1 : 3.3225021006
 Average training loss for Epoch 2 : 3.28286816745
 It took 96.69413661956787 seconds to train for 3 epochs.
-{% endhighlight %}
+```
 
 It’s not a breeze to work through and understand the dynamic_rnn code (which lives [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py)), but we can obtain a similar result ourselves by using tf.scan (dynamic_rnn does not use scan). Scan runs just a tad slower than Tensorflow’s optimized code, but is easier to understand and write yourself.
 
@@ -330,7 +330,7 @@ Below, I use scan with an LSTM so as to compare to the dynamic_rnn using Tensorf
 
 Another thing to note is that scan produces rnn_outputs with shape [num_steps, batch_size, state_size], whereas the dynamic_rnn produces rnn_outputs with shape [batch_size, num_steps, state_size] (the first two dimensions are switched). Dynamic_rnn has the flexibility to switch this behavior, using the “time_major” argument. Tf.scan does not have this flexibility, which is why we transpose `rnn_inputs` and `y` in the code below.
 
-{% highlight python %}
+```python
 def build_multilayer_lstm_graph_with_scan(
     state_size = 100,
     num_classes = vocab_size,
@@ -382,24 +382,24 @@ def build_multilayer_lstm_graph_with_scan(
         total_loss = total_loss,
         train_step = train_step
     )
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 t = time.time()
 g = build_multilayer_lstm_graph_with_scan()
 print("It took", time.time() - t, "seconds to build the graph.")
 t = time.time()
 train_network(g, 3)
 print("It took", time.time() - t, "seconds to train for 3 epochs.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 0.6475389003753662 seconds to build the graph.
 Average training loss for Epoch 0 : 3.55362293501
 Average training loss for Epoch 1 : 3.32045680079
 Average training loss for Epoch 2 : 3.27433713688
 It took 101.60246014595032 seconds to train for 3 epochs.
-{% endhighlight %}
+```
 
 Using scan was only marginally slower than using dynamic_rnn, and gives us the flexibility and understanding to tweak the code if we ever need to (e.g., if for some reason we wanted to create a skip connection from the state at timestep t-2 to timestep t, it would be easy to do with scan).
 
@@ -413,27 +413,27 @@ Two popular choices for RNN cells are the GRU cell and the LSTM cell. By using g
 
 All we have to do to upgrade our vanilla RNN cell is to replace this line:
 
-{% highlight python %}
+```python
 cell = tf.nn.rnn_cell.BasicRNNCell(state_size)
-{% endhighlight %}
+```
 
 with this for LSTM:
 
-{% highlight python %}
+```python
 cell = tf.nn.rnn_cell.LSTMCell(state_size)
-{% endhighlight %}
+```
 
 or this for GRU:
 
-{% highlight python %}
+```python
 cell = tf.nn.rnn_cell.GRUCell(state_size)
-{% endhighlight %}
+```
 
 The LSTM keeps two sets of internal state vectors, $ c $ (for memory cell or constant error carousel) and $ h $ (for hidden state). By default, they are concatenated into a single vector, but as of this writing, using the default arguments to LSTMCell will produce a warning message:
-{% highlight python %}
 
+```
 WARNING:tensorflow:<tensorflow.python.ops.rnn_cell.LSTMCell object at 0x7faade1708d0>: Using a concatenated state is slower and will soon be deprecated.  Use state_is_tuple=True.
-{% endhighlight %}
+```
 
 This error tells us that it’s faster to represent the LSTM state as a tuple of $ c $ and $ h $, rather than as a concatenation of $ c $ and $ h $. You can tack on the argument `state_is_tuple=True` to have it do that.
 
@@ -458,9 +458,9 @@ we can wrap the two cells into a single two-layer cell to make them look and beh
 
 To make this switch, we call `tf.nn.rnn_cell.MultiRNNCell`, which takes a list of RNNCells as its inputs and wraps them into a single cell:
 
-{% highlight python %}
+```python
 cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicRNNCell(state_size)] * num_layers)
-{% endhighlight %}
+```
 
 Note that if you are wrapping an LSTMCell that uses `state_is_tuple=True`, you should pass this same argument to the MultiRNNCell as well.
 
@@ -470,7 +470,7 @@ It’s almost too easy to use the standard GRU or LSTM cells, so let’s define 
 
 To write the custom cell, we need to extend tf.nn.rnn_cell.RNNCell. Specifically, we need to fill in 3 abstract methods and write an `__init__` method (take a look at the Tensorflow code [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py)). First, let’s start with a GRU cell, adapted from Tensorflow’s implementation:
 
-{% highlight python %}
+```python
 class GRUCell(tf.nn.rnn_cell.RNNCell):
     """Gated Recurrent Unit cell (cf. http://arxiv.org/abs/1406.1078)."""
 
@@ -498,19 +498,19 @@ class GRUCell(tf.nn.rnn_cell.RNNCell):
                                              self._num_units, True))
             new_h = u * state + (1 - u) * c
         return new_h, new_h
-{% endhighlight %}
+```
 
 We modify the `__init__` method to take a parameter n at initialization, which will determine the number of transformation matrices $ W_i $ it will create:
 
-{% highlight python %}
+```python
 def __init__(self, num_units, num_weights):
     self._num_units = num_units
     self._num_weights = num_weights
-{% endhighlight %}
+```
 
 Then, we modify the `Candidate` variable scope of the `__call__` method to do a weighted average as shown below (note that all of the $ W_i $ matrices are created as a single variable and then split into multiple tensors):
 
-{% highlight python %}
+```python
 class CustomCell(tf.nn.rnn_cell.RNNCell):
     """Gated Recurrent Unit cell (cf. http://arxiv.org/abs/1406.1078)."""
 
@@ -553,11 +553,11 @@ class CustomCell(tf.nn.rnn_cell.RNNCell):
                                             self._num_units, True, scope="second"))
             new_h = u * state + (1 - u) * c
         return new_h, new_h
-{% endhighlight %}
+```
 
 Let’s see how the custom cell stacks up to a regular GRU cell (using `num_steps = 30`, since this performs much better than `num_steps = 200` after 5 epochs – can you see why that might happen?):
 
-{% highlight python %}
+```python
 def build_multilayer_graph_with_custom_cell(
     cell_type = None,
     num_weights_for_custom_cell = 5,
@@ -615,39 +615,39 @@ def build_multilayer_graph_with_custom_cell(
         total_loss = total_loss,
         train_step = train_step
     )
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_multilayer_graph_with_custom_cell(cell_type='GRU', num_steps=30)
 t = time.time()
 train_network(g, 5, num_steps=30)
 print("It took", time.time() - t, "seconds to train for 5 epochs.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 Average training loss for Epoch 0 : 2.92919953048
 Average training loss for Epoch 1 : 2.35888109404
 Average training loss for Epoch 2 : 2.21945820894
 Average training loss for Epoch 3 : 2.12258511006
 Average training loss for Epoch 4 : 2.05038544733
 It took 284.6971204280853 seconds to train for 5 epochs.
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_multilayer_graph_with_custom_cell(cell_type='Custom', num_steps=30)
 t = time.time()
 train_network(g, 5, num_steps=30)
 print("It took", time.time() - t, "seconds to train for 5 epochs.")
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 Average training loss for Epoch 0 : 3.04418995892
 Average training loss for Epoch 1 : 2.5172702761
 Average training loss for Epoch 2 : 2.37068433601
 Average training loss for Epoch 3 : 2.27533404217
 Average training loss for Epoch 4 : 2.20167231745
 It took 537.6112766265869 seconds to train for 5 epochs.
-{% endhighlight %}
+```
 
 So much for that idea. Our custom cell took almost twice as long to train and seems to perform worse than a standard GRU cell.
 
@@ -659,34 +659,34 @@ Dropout belongs *in between layers, not on the state or in intra-cell connection
 
 Thus, to apply dropout, we need to wrap the input and/or output of *each* cell. In our RNN implementation using list, we might do something like this:
 
-{% highlight python %}
+```python
 rnn_inputs = [tf.nn.dropout(rnn_input, keep_prob) for rnn_input in rnn_inputs]
 rnn_outputs = [tf.nn.dropout(rnn_output, keep_prob) for nn_output in rnn_outputs]
-{% endhighlight %}
+```
 
 In our dynamic_rnn or scan implementations, we might apply dropout directly to the rnn_inputs or rnn_outputs:
 
-{% highlight python %}
+```python
 rnn_inputs = tf.nn.dropout(rnn_inputd, keep_prob)
 rnn_outputs = tf.nn.dropout(rnn_outputd, keep_prob)
-{% endhighlight %}
+```
 
 But what happens when we use `MultiRNNCell`? How can we have dropout in between layers like in Zaremba et al. (2015)? The answer is to wrap our base RNN cell with dropout, thereby including it as part of the base cell, similar to how we wrapped our three RNN cells into a single MultiRNNCell above. Tensorflow allows us to do this without writing a new RNNCell by using `tf.nn.rnn_cell.DropoutWrapper`:
 
-{% highlight python %}
+```python
 cell = tf.nn.rnn_cell.LSTMCell(state_size, state_is_tuple=True)
 cell = tf.nn.rnn_cell.DropoutWrapper(cell, input_keep_prob=input_dropout, output_keep_prob=output_dropout)
 cell = tf.nn.rnn_cell.MultiRNNCell([cell] * num_layers, state_is_tuple=True)
-{% endhighlight %}
+```
 
 Note that if we wrap a base cell with dropout and then use it to build a MultiRNNCell, both input dropout and output dropout will be applied between layers (so if both are, say, $ 0.9 $, the dropout in between layers will be $ 0.9 * 0.9 = 0.81 $). If we want equal dropout on all inputs and outputs of a multi-layered RNN, we can use only output or input dropout on the base cell, and then wrap the entire MultiRNNCell with the input or output dropout like so:
 
-{% highlight python %}
+```python
 cell = tf.nn.rnn_cell.LSTMCell(state_size, state_is_tuple=True)
 cell = tf.nn.rnn_cell.DropoutWrapper(cell, input_keep_prob=global_dropout)
 cell = tf.nn.rnn_cell.MultiRNNCell([cell] * num_layers, state_is_tuple=True)
 cell = tf.nn.rnn_cell.DropoutWrapper(cell, output_keep_prob=global_dropout)
-{% endhighlight %}
+```
 
 ### Layer normalization
 
@@ -702,7 +702,7 @@ Note that $ \odot $ is point-wise multiplication.
 
 To add layer normalization to our network, we first write a function that will layer normalization a 2D tensor along its second dimension:
 
-{% highlight python %}
+```python
 def ln(tensor, scope = None, epsilon = 1e-5):
     """ Layer normalizes a 2D tensor along its second axis """
     assert(len(tensor.get_shape()) == 2)
@@ -719,11 +719,11 @@ def ln(tensor, scope = None, epsilon = 1e-5):
     LN_initial = (tensor - m) / tf.sqrt(v + epsilon)
 
     return LN_initial * scale + shift
-{% endhighlight %}
+```
 
 Let’s apply it our layer normalization function as it was applied by Lei Ba et al. (2016) to LSTMs (in their experiments “Teaching machines to read and comprehend” and “Handwriting sequence generation”). Lei Ba et al. apply layer normalization to the output of each gate inside the LSTM cell, which means that we get to take a second shot at writing a new type of RNN cell. We’ll start with Tensorflow’s official code, located [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py), and modify it accordingly:
 
-{% highlight python %}
+```python
 class LayerNormalizedLSTMCell(tf.nn.rnn_cell.RNNCell):
     """
     Adapted from TF's BasicLSTMCell to use Layer Normalization.
@@ -767,14 +767,14 @@ class LayerNormalizedLSTMCell(tf.nn.rnn_cell.RNNCell):
             new_state = tf.nn.rnn_cell.LSTMStateTuple(new_c, new_h)
 
             return new_h, new_state
-{% endhighlight %}
+```
 
 And that’s it! Let’s try this out.
 
 ### Final model
 At this point, we’ve covered all of the graph modifications we planned to cover, so here is our final model, which allows for dropout and layer normalized LSTM cells:
 
-{% highlight python %}
+```python
 def build_graph(
     cell_type = None,
     num_weights_for_custom_cell = 5,
@@ -847,48 +847,48 @@ def build_graph(
         preds = predictions,
         saver = tf.train.Saver()
     )
-{% endhighlight %}
+```
 
 Let’s compare the GRU, LSTM and LN_LSTM after training each for 20 epochs using 80 step sequences.
 
-{% highlight python %}
+```python
 g = build_graph(cell_type='GRU', num_steps=80)
 t = time.time()
 losses = train_network(g, 20, num_steps=80, save="saves/GRU_20_epochs")
 print("It took", time.time() - t, "seconds to train for 20 epochs.")
 print("The average loss on the final epoch was:", losses[-1])
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 1051.6652357578278 seconds to train for 20 epochs.
 The average loss on the final epoch was: 1.75318197903
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_graph(cell_type='LSTM', num_steps=80)
 t = time.time()
 losses = train_network(g, 20, num_steps=80, save="saves/LSTM_20_epochs")
 print("It took", time.time() - t, "seconds to train for 20 epochs.")
 print("The average loss on the final epoch was:", losses[-1])
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 614.4890048503876 seconds to train for 20 epochs.
 The average loss on the final epoch was: 2.02813237837
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_graph(cell_type='LN_LSTM', num_steps=80)
 t = time.time()
 losses = train_network(g, 20, num_steps=80, save="saves/LN_LSTM_20_epochs")
 print("It took", time.time() - t, "seconds to train for 20 epochs.")
 print("The average loss on the final epoch was:", losses[-1])
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 3867.550405740738 seconds to train for 20 epochs.
 The average loss on the final epoch was: 1.71850851623
-{% endhighlight %}
+```
 
 It looks like the layer normalized LSTM just managed to edge out the GRU in the last few epochs, though the increase in training time hardly seems worth it (perhaps my implementation could be improved?). It would be interesting to see how they would perform on a validation or test set and also to try out a layer normalized GRU. For now, let’s use the GRU to generate some text.
 
@@ -896,7 +896,7 @@ It looks like the layer normalized LSTM just managed to edge out the GRU in the 
 
 To generate text, were going to rebuild the graph so as to accept a single character at a time and restore our saved model. We’ll give the network a single character prompt, grab its predicted probability distribution for the next character, use that distribution to pick the next character, and repeat. When picking the next character, our `generate_characters` function can be set to use the whole probability distribution (default), or be forced to pick one of the top n most likely characters in the distribution. The latter option should obtain more English-like results.
 
-{% highlight python %}
+```python
 def generate_characters(g, checkpoint, num_chars, prompt='A', pick_top_chars=None):
     """ Accepts a current character, initial state"""
 
@@ -929,14 +929,14 @@ def generate_characters(g, checkpoint, num_chars, prompt='A', pick_top_chars=Non
     chars = map(lambda x: idx_to_vocab[x], chars)
     print("".join(chars))
     return("".join(chars))
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_graph(cell_type='LN_LSTM', num_steps=1, batch_size=1)
 generate_characters(g, "saves/LN_LSTM_20_epochs", 750, prompt='A', pick_top_chars=5)
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 ATOOOS
 
  UIEAOUYOUZZZZZZUZAAAYAYf n fsflflrurctuateot t ta's  a  wtutss ESGNANO:
@@ -959,11 +959,11 @@ And sen the have would be sectiens, way thee,
 They are there to man shall with me to the mon,
 And mere fear would be the balte, as time an at
 And the say oun touth, thy way womers thee.
-{% endhighlight %}
+```
 
 You can see that this network has learned something. It’s definitely not random, though there is a bit of a warm up at the beginning (the state starts at 0). I was expecting something a bit better, however, given [Karpathy’s Shakespeare results](http://karpathy.github.io/2015/05/21/rnn-effectiveness/#shakespeare). His model used more data, a state_size of 512, and was trained quite a bit longer than this one. Let’s see if we can match that. I couldn’t find a suitable premade dataset, so I had to make one myself: I concatenated the scripts from the Star Wars movies, the Star Trek movies, Tarantino and the Matrix. The final file size is 3.3MB, which is a bit smaller than the full works of William Shakespeare. Let’s load these up and try this again, with a larger state size:
 
-{% highlight python %}
+```python
 """
 Load new data
 """
@@ -985,13 +985,13 @@ vocab_to_idx = dict(zip(idx_to_vocab.values(), idx_to_vocab.keys()))
 
 data = [vocab_to_idx[c] for c in raw_data]
 del raw_data
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 Data length: 3299132
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_graph(cell_type='GRU',
                 num_steps=80,
                 state_size = 512,
@@ -1002,19 +1002,19 @@ t = time.time()
 losses = train_network(g, 30, num_steps=80, batch_size = 50, save="saves/GRU_30_epochs_variousscripts")
 print("It took", time.time() - t, "seconds to train for 30 epochs.")
 print("The average loss on the final epoch was:", losses[-1])
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 It took 4877.8002140522 seconds to train for 30 epochs.
 The average loss on the final epoch was: 0.726858645461
-{% endhighlight %}
+```
 
-{% highlight python %}
+```python
 g = build_graph(cell_type='GRU', num_steps=1, batch_size=1, num_classes=vocab_size, state_size = 512)
 generate_characters(g, "saves/GRU_30_epochs_variousscripts", 750, prompt='D', pick_top_chars=5)
-{% endhighlight %}
+```
 
-{% highlight python %}
+```
 DENT'SUEENCK
 
 Bartholomew of the TIE FIGHTERS are stunned. There is a crowd and armored
@@ -1035,7 +1035,7 @@ Naboo from an army seventy medical
 security team area re-weilergular.
 
 EXT.
-{% endhighlight %}
+```
 
 Not sure these are that much better than before, but it’s sort of readable?
 
