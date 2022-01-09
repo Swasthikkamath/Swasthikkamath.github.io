@@ -1,18 +1,27 @@
 ---
 layout: page
-title: About
+title: About Us
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+This page will contain information about Verisk and the purpose of the blog. We would have links to the [Verisk website](https://www.verisk.com/), the [github repo](https://github.com/AadiKuchlous/aadikuchlous.github.io), and any other information that we would like to have.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+For the moment, I am using it as a place to document the working of this website to successfully replicate it wherever required.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Each of these pages, "about us" and "authors" are located in the base directory as markdown files.
 
+All meta information is stored in `_config.yml`.
 
-[jekyll-organization]: https://github.com/jekyll
+Using jekyll-spaceship for all media processing - gifs, videos(links), LaTeX (they are using [MathJax](www.mathjax.org)).
+
+Using `_plugins/video_tag.rb` for local video embedding.
+
+Github pages does not allow processing of external plugins, so static HTML needs to be generated locally and hosted on github.
+
+> We might need to think about what to do for this. One option is to run a script to generate the html and push to the repo, or otherwise we have each person build locally and push.
+
+Using [Commento](https://commento.io/) for comment section. I chose this because it allows complete anonymous posting of comments. We may or may not want this (to be discussed). Based on this we can choose to use some other commenting service, or to host it ourselves with our own DB and script. We would also need to discuss the pricing component of this.
+
+All styling is in the `_sass` directory. Page layouts are defined in the `_layouts` directory. HTML macros are definded in the `_includes` directory.
+
+Draft posts can be written in the `_drafts` directory, and will not be converted to HTML when the sie is built. They can then be copied into the `_posts` directory to be published.

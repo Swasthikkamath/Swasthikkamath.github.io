@@ -8,9 +8,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>About | Verisk Blog</title>
+<title>About Us | Verisk Blog</title>
 <meta name="generator" content="Jekyll v4.2.1">
-<meta property="og:title" content="About">
+<meta property="og:title" content="About Us">
 <meta property="og:locale" content="en_US">
 <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
 <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
@@ -18,9 +18,9 @@
 <meta property="og:url" content="https://aadikuchlous.github.io/about/">
 <meta property="og:site_name" content="Verisk Blog">
 <meta name="twitter:card" content="summary">
-<meta property="twitter:title" content="About">
+<meta property="twitter:title" content="About Us">
 <script type="application/ld+json">
-{"headline":"About","url":"https://aadikuchlous.github.io/about/","name":"Verisk Blog","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","@type":"WebSite","@context":"https://schema.org"}</script>
+{"url":"https://aadikuchlous.github.io/about/","headline":"About Us","name":"Verisk Blog","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","@type":"WebSite","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
 <link type="application/atom+xml" rel="alternate" href="https://aadikuchlous.github.io/feed.xml" title="Verisk Blog">
@@ -40,7 +40,7 @@
         </label>
 
         <div class="trigger">
-<a class="page-link" href="/about/">About</a><a class="page-link" href="/test/">TestPage</a>
+<a class="page-link" href="/about/">About Us</a><a class="page-link" href="/test/">Authors</a>
 </div>
       </nav>
 </div>
@@ -50,20 +50,33 @@
         <article class="post">
 
   <header class="post-header">
-    <h1 class="post-title">About</h1>
+    <h1 class="post-title">About Us</h1>
   </header>
 
   <div class="post-content">
-    <p>This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at <a href="https://jekyllrb.com/">jekyllrb.com</a></p>
+    <p>This page will contain information about Verisk and the purpose of the blog. We would have links to the <a href="https://www.verisk.com/">Verisk website</a>, the <a href="https://github.com/AadiKuchlous/aadikuchlous.github.io">github repo</a>, and any other information that we would like to have.</p>
 
-<p>You can find the source code for Minima at GitHub:
-<a href="https://github.com/jekyll">jekyll</a> /
-<a href="https://github.com/jekyll/minima">minima</a></p>
+<p>For the moment, I am using it as a place to document the working of this website to successfully replicate it wherever required.</p>
 
-<p>You can find the source code for Jekyll at GitHub:
-<a href="https://github.com/jekyll">jekyll</a> /
-<a href="https://github.com/jekyll/jekyll">jekyll</a></p>
+<p>Each of these pages, “about us” and “authors” are located in the base directory as markdown files.</p>
 
+<p>All meta information is stored in <code class="language-plaintext highlighter-rouge">_config.yml</code>.</p>
+
+<p>Using jekyll-spaceship for all media processing - gifs, videos(links), LaTeX (they are using <a href="www.mathjax.org">MathJax</a>).</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">_plugins/video_tag.rb</code> for local video embedding.</p>
+
+<p>Github pages does not allow processing of external plugins, so static HTML needs to be generated locally and hosted on github.</p>
+
+<blockquote>
+  <p>We might need to think about what to do for this. One option is to run a script to generate the html and push to the repo, or otherwise we have each person build locally and push.</p>
+</blockquote>
+
+<p>Using <a href="https://commento.io/">Commento</a> for comment section. I chose this because it allows complete anonymous posting of comments. We may or may not want this (to be discussed). Based on this we can choose to use some other commenting service, or to host it ourselves with our own DB and script. We would also need to discuss the pricing component of this.</p>
+
+<p>All styling is in the <code class="language-plaintext highlighter-rouge">_sass</code> directory. Page layouts are defined in the <code class="language-plaintext highlighter-rouge">_layouts</code> directory. HTML macros are definded in the <code class="language-plaintext highlighter-rouge">_includes</code> directory.</p>
+
+<p>Draft posts can be written in the <code class="language-plaintext highlighter-rouge">_drafts</code> directory, and will not be converted to HTML when the sie is built. They can then be copied into the <code class="language-plaintext highlighter-rouge">_posts</code> directory to be published.</p>
 
   </div>
 
