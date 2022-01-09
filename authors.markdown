@@ -13,7 +13,7 @@ Below could be an example of what this might look like:
 <div style="width:40%; height:100%">
 
 <div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="https://media-exp1.licdn.com/dms/image/C5603AQGBPvfWl4-ytw/profile-displayphoto-shrink_200_200/0/1517654602592?e=1647475200&v=beta&t=Rp_YYqSDmLbPww_9TT4WayM0nTXyZVp1byOHk_bV42c">
+<img src="/assets/MKS.jpeg">
 </div>
 
 <div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
@@ -41,8 +41,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <div style="width:40%; height:100%">
 
 <div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="https://media-exp1.licdn.com/dms/image/C4E03AQGeo5KRNXGRVw/profile-displayphoto-shrink_200_200/0/1581696392240?e=1647475200&v=beta&t=w3cFbUFTpgdlj-5IAxS_ggXPFqEG9ClFIi_ISsICGlo">
-</div>
+<img src="/assets/amar.jpeg">
+</div>	
 
 <div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
 -> 1 Article
@@ -69,7 +69,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <div style="width:40%; height:100%">
 
 <div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="https://media-exp1.licdn.com/dms/image/C4E03AQGWwut5zYpJtQ/profile-displayphoto-shrink_200_200/0/1633585218910?e=1647475200&v=beta&t=wCwQm2s98Hp290ssoh9bvykIReTenqotBV79BaUHgQg">
+<img src="/assets/sindhu.jpeg">
 </div>
 
 <div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
@@ -97,7 +97,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <div style="width:40%; height:100%">
 
 <div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="https://media-exp1.licdn.com/dms/image/C5103AQG6AGivqSx1OA/profile-displayphoto-shrink_200_200/0/1538577945864?e=1647475200&v=beta&t=y7JXZzy5y5BQezI2z0QVFCwxULwj_LUv57oT_upw0YQ">
+<img src="/assets/siddharth.jpeg">
 </div>
 
 <div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
