@@ -36,7 +36,7 @@ module Jekyll
         '.webm' => "type='video/webm; codecs=vp8, vorbis'"
       }
       if @videos.size > 0
-        video =  "<video #{sizes} preload='metadata' controls #{poster}>"
+        video =  "<video #{sizes} preload='metadata' controls #{poster} style='width:80%'>"
         @videos.each do |v|
           video << "<source src='#{v}' #{types[File.extname(v)]}>"
         end

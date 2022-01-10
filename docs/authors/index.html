@@ -56,125 +56,216 @@
   </header>
 
   <div class="post-content">
-    <p>This is the page where there will be a directory of Authors, information about them and the posts they have contributed to.</p>
+    <style>
 
-<p>Below could be an example of what this might look like:</p>
+.author-block {
+  height: 150px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-right: 15px;
+  background-color: lightblue;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-<div style="height:150px; padding-top:30px; padding-bottom:30px; padding-right:15px; background-color:lightblue; width:75%; margin-left:auto; margin-right:auto; display:flex; justify-content:center; align-items:center;">
+.left-section {
+  width: 40%;
+  height: 100%
+}
 
-<div style="width:40%; height:100%">
+.profile-pic {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
+}
 
-<div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="/assets/MKS.jpeg">
-</div>
+.view-articles {
+  background-color: #f08080;
+  width: 80%;
+  border-radius: 10px;
+  margin-top: 15px;
+  height: 30%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-<div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
--&gt; 3 Articles
-</div>
+.view-articles:hover {
+  background-color: #ef6f6f;
+}
 
-</div>
+.text {
+  width: 60%;
+  
+}
 
-<div class="text" style="width:60%;">
+.name {
+  font-weight: bold;
+}
 
-<div class="name" style="font-weight:bold;">
-Maneesh Kumar Singh
-</div>
+</style>
 
-<div class="bio">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</div>
+<div class="author-block">
 
-</div>
+  <div class="left-section">
 
-</div>
+    <div class="profile-pic">
+      <img src="/assets/authors/aadi.jpeg">
+    </div>
 
-<div style="height:150px; padding-top:30px; padding-bottom:30px; padding-right:15px; background-color:lightblue; width:75%; margin-left:auto; margin-right:auto; display:flex; justify-content:center; align-items:center;">
+    <div onclick="window.location.href = 'https://aadikuchlous.github.io/authors/aadi.html';" class="view-articles">
+      -&gt; 2
+      
+        Articles</div>
 
-<div style="width:40%; height:100%">
+  </div>
 
-<div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="/assets/amar.jpeg">
-</div>	
+  <div class="text">
 
-<div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
--&gt; 1 Article
-</div>
+    <div class="name">
+      <a href="/authors/aadi.html">Aadi Kuchlous</a>
+    </div>
 
-</div>
+    <div class="bio">
+      <p>Aadi is an intern living in bangalore. He has 3 years of front end experience. He has set up this Jekyll site for the Verisk AI team.</p>
 
-<div class="text" style="width:60%;">
+    </div>
 
-<div class="name" style="font-weight:bold;">
-Amar Viswanathan
-</div>
-
-<div class="bio">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</div>
-
-</div>
-
-</div>
-
-<div style="height:150px; padding-top:30px; padding-bottom:30px; padding-right:15px; background-color:lightblue; width:75%; margin-left:auto; margin-right:auto; display:flex; justify-content:center; align-items:center;">
-
-<div style="width:40%; height:100%">
-
-<div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="/assets/sindhu.jpeg">
-</div>
-
-<div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
--&gt; 1 Article
-</div>
-
-</div>
-
-<div class="text" style="width:60%;">
-
-<div class="name" style="font-weight:bold;">
-Sindhu Hegde
-</div>
-
-<div class="bio">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</div>
-
-</div>
-
-</div>
-
-<div style="height:150px; padding-top:30px; padding-bottom:30px; padding-right:15px; background-color:lightblue; width:75%; margin-left:auto; margin-right:auto; display:flex; justify-content:center; align-items:center;">
-
-<div style="width:40%; height:100%">
-
-<div class="profile-pic" style="border-radius:50%; width:100px; height:100px; margin-right:auto; margin-left:auto; overflow:hidden;">
-<img src="/assets/siddharth.jpeg">
-</div>
-
-<div class="view-articles" style="background-color:lightcoral; width:80%; border-radius:10px; margin-top: 15px; height: 30%; margin-right:auto; margin-left:auto; display:flex; align-items:center; justify-content:center;">
--&gt; 1 Article
-</div>
+  </div>
 
 </div>
 
-<div class="text" style="width:60%;">
+<div class="author-block">
 
-<div class="name" style="font-weight:bold;">
-Siddharth Seth
+  <div class="left-section">
+
+    <div class="profile-pic">
+      <img src="/assets/authors/amar.jpeg">
+    </div>
+
+    <div onclick="window.location.href = 'https://aadikuchlous.github.io/authors/amar.html';" class="view-articles">
+      -&gt; 2
+      
+        Articles</div>
+
+  </div>
+
+  <div class="text">
+
+    <div class="name">
+      <a href="/authors/amar.html">Amar Viswanathan</a>
+    </div>
+
+    <div class="bio">
+      <p>Knowledge graph researcher, Deep Learning Adopter, Amateur Programmer, Cricket Lover, Trivia hoarder,  Carnatic Guitar amateur, tin whistle amateur</p>
+
+    </div>
+
+  </div>
+
 </div>
 
-<div class="bio">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</div>
+<div class="author-block">
+
+  <div class="left-section">
+
+    <div class="profile-pic">
+      <img src="/assets/authors/MKS.jpeg">
+    </div>
+
+    <div onclick="window.location.href = 'https://aadikuchlous.github.io/authors/maneesh.html';" class="view-articles">
+      -&gt; 1
+      
+        Article
+      </div>
+
+  </div>
+
+  <div class="text">
+
+    <div class="name">
+      <a href="/authors/maneesh.html">Maneesh Kumar Singh</a>
+    </div>
+
+    <div class="bio">
+      <p>Maneesh is the head of the R&amp;D team at Verisk. He has a Ph.D. in Electrical and Computer Engineering from UIUC.</p>
+
+    </div>
+
+  </div>
 
 </div>
 
+<div class="author-block">
+
+  <div class="left-section">
+
+    <div class="profile-pic">
+      <img src="/assets/authors/siddharth.jpeg">
+    </div>
+
+    <div onclick="window.location.href = 'https://aadikuchlous.github.io/authors/siddharth.html';" class="view-articles">
+      -&gt; 1
+      
+        Article
+      </div>
+
+  </div>
+
+  <div class="text">
+
+    <div class="name">
+      <a href="/authors/siddharth.html">Siddharth Seth</a>
+    </div>
+
+    <div class="bio">
+      <p>Graduate research student at Indian Institute of Science. Passionate about computer vision and deep learning, I am working on problems in unsupervised human pose estimation and person re-identification.</p>
+
+    </div>
+
+  </div>
+
 </div>
 
-<p><br></p>
+<div class="author-block">
 
-<p>This JS for the author data, on this page, as well as the posts, needs to be written by us, unless we can find some plugins/framworks to do that for us. It is currently static and hard-coded. This needs to change.</p>
+  <div class="left-section">
+
+    <div class="profile-pic">
+      <img src="/assets/authors/sindhu.jpeg">
+    </div>
+
+    <div onclick="window.location.href = 'https://aadikuchlous.github.io/authors/sindhu.html';" class="view-articles">
+      -&gt; 3
+      
+        Articles</div>
+
+  </div>
+
+  <div class="text">
+
+    <div class="name">
+      <a href="/authors/sindhu.html">Sindhu Hegde</a>
+    </div>
+
+    <div class="bio">
+      <p>I have recently joined Verisk as an AI/ML Engineer. My primary research interest lies in the area of Computer Vision and AI, with a focus on understanding the interaction between different modalities such as vision, speech, and language.</p>
+
+    </div>
+
+  </div>
+
+</div>
+
 
   </div>
 

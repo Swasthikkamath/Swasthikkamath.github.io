@@ -58,4 +58,22 @@ whitelist:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-disqus_shortname: maneeshblogtest
+# disqus_shortname: maneeshblogtest
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "testpost"
+      comments: true
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
+
+collections:
+  authors:
+    output: true

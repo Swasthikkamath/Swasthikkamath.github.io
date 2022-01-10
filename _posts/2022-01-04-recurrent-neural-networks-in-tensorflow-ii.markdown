@@ -1,8 +1,8 @@
 ---
-layout: post
 title:  "Recurrent Neural Networks in Tensorflow II"
 date:   2022-01-04 11:28:34 +0530
 categories: jekyll tensorflow neuralNetworks
+authors: Amar, Sindhu
 ---
 
 This is the second in a series of posts about recurrent neural networks in Tensorflow. The first post lives [here](https://r2rt.com/recurrent-neural-networks-in-tensorflow-i.html). In this post, we will build upon our vanilla RNN by learning how to use Tensorflow’s scan and dynamic_rnn models, upgrading the RNN cell and stacking multiple RNNs, and adding dropout and layer normalization. We will then use our upgraded RNN to generate some text, character by character.

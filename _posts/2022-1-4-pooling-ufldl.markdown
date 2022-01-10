@@ -1,8 +1,8 @@
 ---
-layout: post
 title:  "Pooling - UFLDL"
 date:   2022-01-04 12:45:34 +0530
 categories: jekyll update
+authors: Sindhu, Siddharth
 ---
 
 ### Pooling: Overview
