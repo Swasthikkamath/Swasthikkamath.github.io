@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Authors
-permalink: /test/
+permalink: /authors/
 ---
 
 This is the page where there will be a directory of Authors, information about them and the posts they have contributed to.

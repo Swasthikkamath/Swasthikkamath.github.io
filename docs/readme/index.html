@@ -8,19 +8,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Verisk Blog | Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+<title>README | Verisk Blog</title>
 <meta name="generator" content="Jekyll v4.2.1">
-<meta property="og:title" content="Verisk Blog">
+<meta property="og:title" content="README">
 <meta property="og:locale" content="en_US">
 <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
 <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
-<link rel="canonical" href="https://aadikuchlous.github.io/">
-<meta property="og:url" content="https://aadikuchlous.github.io/">
+<link rel="canonical" href="https://aadikuchlous.github.io/readme/">
+<meta property="og:url" content="https://aadikuchlous.github.io/readme/">
 <meta property="og:site_name" content="Verisk Blog">
 <meta name="twitter:card" content="summary">
-<meta property="twitter:title" content="Verisk Blog">
+<meta property="twitter:title" content="README">
 <script type="application/ld+json">
-{"url":"https://aadikuchlous.github.io/","headline":"Verisk Blog","name":"Verisk Blog","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","@type":"WebSite","@context":"https://schema.org"}</script>
+{"url":"https://aadikuchlous.github.io/readme/","headline":"README","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
 <link type="application/atom+xml" rel="alternate" href="https://aadikuchlous.github.io/feed.xml" title="Verisk Blog">
@@ -49,45 +49,37 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
-<h2 class="post-list-heading">Posts</h2>
-    <ul class="post-list">
-<li>
-<span class="post-meta">Jan 4, 2022</span>
-        <h3>
-          <a class="post-link" href="/jekyll/update/2022/01/04/pooling-ufldl.html">
-            Pooling - UFLDL
-          </a>
-        </h3>
-</li>
-<li>
-<span class="post-meta">Jan 4, 2022</span>
-        <h3>
-          <a class="post-link" href="/jekyll/update/2022/01/04/feature-extraction-using-convolution.html">
-            Feature Extraction Using Convolution - UFLDL
-          </a>
-        </h3>
-</li>
-<li>
-<span class="post-meta">Jan 4, 2022</span>
-        <h3>
-          <a class="post-link" href="/jekyll/tensorflow/neuralnetworks/2022/01/04/recurrent-neural-networks-in-tensorflow-ii.html">
-            Recurrent Neural Networks in Tensorflow II
-          </a>
-        </h3>
-</li>
-<li>
-<span class="post-meta">Dec 28, 2021</span>
-        <h3>
-          <a class="post-link" href="/jekyll/update/2021/12/28/testing-the-capabilities.html">
-            Testing The Possibilities
-          </a>
-        </h3>
-</li>
-</ul>
+        <article class="post">
 
-    <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
-</div>
+  <header class="post-header">
+    <h1 class="post-title">README</h1>
+  </header>
+
+  <div class="post-content">
+    <p>Each of these pages, “about us” and “authors” are located in the base directory as markdown files.</p>
+
+<p>All meta information is stored in <code class="language-plaintext highlighter-rouge">_config.yml</code>.</p>
+
+<p>Using jekyll-spaceship for all media processing - gifs, videos(links), LaTeX (they are using <a href="www.mathjax.org">MathJax</a>).</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">_plugins/video_tag.rb</code> for local video embedding.</p>
+
+<p>Github pages does not allow processing of external plugins, so static HTML needs to be generated locally and hosted on github.</p>
+
+<blockquote>
+  <p>We might need to think about what to do for this. One option is to run a script to generate the html and push to the repo, or otherwise we have each person build locally and push.</p>
+</blockquote>
+
+<p>Using <a href="https://commento.io/">Commento</a> for comment section. I chose this because it allows complete anonymous posting of comments. We may or may not want this (to be discussed). Based on this we can choose to use some other commenting service, or to host it ourselves with our own DB and script. We would also need to discuss the pricing component of this.</p>
+
+<p>All styling is in the <code class="language-plaintext highlighter-rouge">_sass</code> directory. Page layouts are defined in the <code class="language-plaintext highlighter-rouge">_layouts</code> directory. HTML macros are definded in the <code class="language-plaintext highlighter-rouge">_includes</code> directory.</p>
+
+<p>Draft posts can be written in the <code class="language-plaintext highlighter-rouge">_drafts</code> directory, and will not be converted to HTML when the sie is built. They can then be copied into the <code class="language-plaintext highlighter-rouge">_posts</code> directory to be published.</p>
+
+
+  </div>
+
+</article>
 
       </div>
     </main><footer class="site-footer h-card">
