@@ -323,11 +323,11 @@ th {
   border-style: solid;
   border-width: 0;
 }
-
+/*
 label {
   display: inline-block;
 }
-
+*/
 button {
   border-radius: 0;
 }
@@ -3907,7 +3907,7 @@ textarea.form-control-lg {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
-
+/*
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -4483,7 +4483,7 @@ textarea.form-control-lg {
 .navbar-dark .navbar-text a:focus {
   color: #fff;
 }
-
+*/
 .card {
   position: relative;
   display: flex;
@@ -4770,7 +4770,7 @@ textarea.form-control-lg {
 .breadcrumb-item.active {
   color: #6c757d;
 }
-
+/*
 .pagination {
   display: flex;
   padding-right: 0;
@@ -4859,7 +4859,7 @@ textarea.form-control-lg {
   border-top-left-radius: 0.2rem;
   border-bottom-left-radius: 0.2rem;
 }
-
+*/
 .badge {
   display: inline-block;
   padding: 0.35em 0.65em;

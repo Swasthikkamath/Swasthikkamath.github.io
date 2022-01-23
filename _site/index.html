@@ -36,6 +36,10 @@
 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script defer src="/assets/js/mansory.js" type="text/javascript"></script>
+
   <script src="/assets/js/common.js"></script><link type="application/atom+xml" rel="alternate" href="https://aadikuchlous.github.io/feed.xml" title="Verisk Blog">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 
@@ -55,7 +59,7 @@
         </label>
 
         <div class="trigger">
-<a class="page-link" href="/about/">About Us</a><a class="page-link" href="/authors/">Authors</a><a class="page-link" href="/bib/">Bibliography</a><a class="page-link" href="/blog/">Blog</a>
+<a class="page-link" href="/about/">About Us</a><a class="page-link" href="/authors/">Authors</a><a class="page-link" href="/bib/">Bibliography</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/projects/">Projects</a>
 </div>
       </nav>
 </div>
@@ -63,7 +67,10 @@
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
         <div class="home">
-<h2 class="post-list-heading">Posts</h2>
+<!---->
+
+  
+<h1 class="post-list-heading">Blog Posts</h1>
     <ul class="post-list">
 <li>
 <span class="post-meta">Jan 4, 2022</span>
@@ -72,7 +79,9 @@
             Pooling - UFLDL
           </a>
         </h3>
-<h3 id="pooling-overview">Pooling: Overview</h3>
+<div class="post-abstract">
+          After obtaining features using convolution, we would next like to use them for classification. In theory, one could use all the extracted features with a classifier such as a softmax classifier, but this can be computationally challenging.
+          </div>
 </li>
 <li>
 <span class="post-meta">Jan 4, 2022</span>
@@ -81,7 +90,6 @@
             Feature Extraction Using Convolution - UFLDL
           </a>
         </h3>
-<h3 id="overview">Overview</h3>
 </li>
 <li>
 <span class="post-meta">Jan 4, 2022</span>
@@ -90,7 +98,6 @@
             Recurrent Neural Networks in Tensorflow II
           </a>
         </h3>
-<p>This is the second in a series of posts about recurrent neural networks in Tensorflow. The first post lives <a href="https://r2rt.com/recurrent-neural-networks-in-tensorflow-i.html">here</a>. In this post, we will build upon our vanilla RNN by learning how to use Tensorflow’s scan and dynamic_rnn models, upgrading the RNN cell and stacking multiple RNNs, and adding dropout and layer normalization. We will then use our upgraded RNN to generate some text, character by character.</p>
 </li>
 <li>
 <span class="post-meta">Dec 28, 2021</span>
@@ -99,7 +106,6 @@
             Testing The Possibilities
           </a>
         </h3>
-<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
 </li>
 </ul>
 

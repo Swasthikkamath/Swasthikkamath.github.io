@@ -51,6 +51,7 @@ whitelist:
 # their entries' file path in the `include:` list.
 #
 
+include: ['_pages']
 exclude:
     - README.md
     - README.markdown
@@ -83,6 +84,10 @@ defaults:
 collections:
   authors:
     output: true
+    permalink: /authors/:path/
+  projects:
+    output: true
+    permalink: /projects/:path/
 
 scholar:
   style: modern-language-association
@@ -90,3 +95,4 @@ scholar:
   bibliography_template: bib
 
 max_width: 800px
+enable_project_categories: true

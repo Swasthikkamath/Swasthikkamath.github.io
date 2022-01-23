@@ -48,6 +48,7 @@ $on-laptop:        800px !default;
 }
 
 @import "bootstrap/css/bootstrap-grid.css";
+@import "bootstrap/css/bootstrap.rtl.css";
 
 @import
   "variables",
@@ -65,4 +66,3 @@ $on-laptop:        800px !default;
 ;
 
 @import "my_styles.css";
-

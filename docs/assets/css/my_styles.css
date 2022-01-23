@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: content-box;
+}
+
 abbr {
   margin: 3px;
   font-size: smaller;
@@ -15,21 +19,44 @@ abbr {
   font-size: 1rem;
 }
 
-.abstract {
-  margin-top: 6px;
+div.abstract {
   width: 140%;
   margin-left: -20%;
 }
 
+div.abstract.open {
+  margin-top: 10px;
+}
+
+div.bibtex {
+  width: 140%;
+  margin-left: -20%;
+}
+
+div.bibtex.open {
+  margin-top: 10px;
+}
+
 .links {
-  margin-left: 17%;
+//  margin-left: 17%;
 }
 
 a {
-  color: black;
+  color: black !important;
 }
 
 .post-abstract {
   font-style: italic;
   color: grey;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  max-width: 800px !important;
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+}
+
+.grid-item a:hover {
+  text-decoration: none;
 }

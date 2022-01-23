@@ -1,4 +1,5 @@
 @import url(bootstrap/css/bootstrap-grid.css);
+@import url(bootstrap/css/bootstrap.rtl.css);
 /******************************************************************************* Variables used throughout the theme. To adjust anything, simply edit the variables below and rebuild the theme. */
 /******************************************************************************* Themes */
 @import url(my_styles.css);
