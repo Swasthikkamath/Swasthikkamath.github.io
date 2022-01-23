@@ -2,7 +2,7 @@
 layout: page
 title: Bibliography
 permalink: /bib/
-years: [1956, 1950, 1935, 1905]
+years: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 1998, 1975]
 nav: true
 ---
 

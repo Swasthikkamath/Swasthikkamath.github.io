@@ -5,6 +5,7 @@ categories: jekyll update
 authors: Sindhu, Siddharth
 layout: distill
 bibliography: bibliography.bib
+abstract: After obtaining features using convolution, we would next like to use them for classification. In theory, one could use all the extracted features with a classifier such as a softmax classifier, but this can be computationally challenging.
 ---
 
 ### Pooling: Overview
@@ -28,8 +29,3 @@ If one chooses the pooling regions to be contiguous areas in the image and only 
 Formally, after obtaining our convolved features as described earlier, we decide the size of the region, say $ m \times n $ to pool our convolved features over. Then, we divide our convolved features into disjoint $ m \times n $ regions, and take the mean (or maximum) feature activation over these regions to obtain the pooled convolved features. These pooled features can then be used for classification.
 
 In the next section, we further describe how to “pool” these features together to get even better features for classification.
-
-References
-----------
-
-{% bibliography --cited %}

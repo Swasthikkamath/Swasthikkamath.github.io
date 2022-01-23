@@ -7,7 +7,15 @@
           {%- if site.data.venues[entry.abbr] -%}
           <abbr class="badge"><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
           {%- else -%}
-          <abbr class="badge">{{entry.abbr}}</abbr>
+
+          {%- assign badges = entry.abbr | split: ', ' -%}
+
+          {%- for badge in badges -%}
+
+          <abbr class="badge">{{badge}}</abbr>
+
+          {%- endfor -%}
+
           {%- endif -%}
         {%- endif -%}
         </div>
@@ -18,7 +26,20 @@
           {{reference}}
         {%- else %}
           <!-- Title -->
+
+          {%- if entry.url -%}
+
+          <div class="title">
+            <a href="{{entry.url}}">{{entry.title}}</a>
+            <img src="https://img.icons8.com/material-outlined/16/000000/external-link.png"/>
+          </div>
+
+          {%- else -%}
+
           <div class="title">{{entry.title}}</div>
+
+          {%- endif -%}
+
           <!-- Author -->
           <div class="author">
           {%- for author in entry.author_array -%}

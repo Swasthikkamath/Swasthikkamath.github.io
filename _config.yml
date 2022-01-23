@@ -21,7 +21,7 @@
 title: Verisk Blog
 email: your-email@example.com
 
-# show_excerpts: true
+show_excerpts: true
 
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -50,7 +50,10 @@ whitelist:
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
+
+exclude:
+    - README.md
+    - README.markdown
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

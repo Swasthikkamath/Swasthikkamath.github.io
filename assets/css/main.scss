@@ -47,6 +47,8 @@ $on-laptop:        800px !default;
   font-size: $base-font-size * $ratio;
 }
 
+@import "bootstrap/css/bootstrap-grid.css";
+
 @import
   "variables",
   "themes",
@@ -61,3 +63,6 @@ $on-laptop:        800px !default;
   "minima/layout",
   "minima/syntax-highlighting"
 ;
+
+@import "my_styles.css";
+
