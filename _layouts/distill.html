@@ -30,6 +30,7 @@ layout: default
             </span>
          {% endfor -%}
       {%- endif -%}</p>
+    <div id="links" style="margin-top:20px;"><a href="#post-appendix">Jump to appendix</a> • <a href="#commento">Jump to comments</a></div>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -42,19 +43,19 @@ layout: default
   {%- endif -%}
 -->
 
-  {%- include comments.html -%}
-  <!-- comments.html checks if comments are enabled for the post -->
-
-  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
-</article>
-
-<d-appendix>
+<d-appendix id="post-appendix">
         <d-footnote-list></d-footnote-list>
         <d-citation-list></d-citation-list>
-      </d-appendix>
+</d-appendix>
 
   {% if page.bibliography %}
   <d-bibliography src="{{ page.bibliography | prepend: '/assets/' | relative_url }}">
   </d-bibliography>
   {% endif %}
 
+
+  {%- include comments.html -%}
+  <!-- comments.html checks if comments are enabled for the post -->
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>

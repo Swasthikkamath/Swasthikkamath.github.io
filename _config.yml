@@ -73,7 +73,7 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "testpost"
+      layout: "distill"
       comments: true
   - scope:
       path: ""

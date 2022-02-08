@@ -14,15 +14,15 @@ Jekyll requires blog post files to be named according to the following format:
 
 Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![gif](/assets/test.gif)
-{: refdef}
+{% endalign_center %}
 
 $$ J_{fwd} = I(Z_{t+1}; Z_t, A_t) $$
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![alt test](/assets/test1.png)
-{: refdef}
+{% endalign_center %}
 
 Jekyll also offers powerful support for code snippets:
 
@@ -34,9 +34,9 @@ print_hi('Tom')
 #=> prints 'Hi, Tom' to STDOUT.
 {% endhighlight %}
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![](https://www.youtube.com/watch?v=Ptk_1Dc2iPY)
-{: refdef}
+{% endalign_center %}
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 

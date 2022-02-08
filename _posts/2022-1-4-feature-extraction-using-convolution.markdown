@@ -27,9 +27,9 @@ More precisely, having learned features over small (say 8x8) patches sampled ran
 
 To give a concrete example, suppose you have learned features on 8x8 patches sampled from a 96x96 image. Suppose further this was done with an autoencoder that has 100 hidden units. To get the convolved features, for every 8x8 region of the 96x96 image, that is, the 8x8 regions starting at $ (1,1),(1,2)\ldots(89,89) $, you would extract the 8x8 patch, and run it through your trained sparse autoencoder to get the feature activations. This would result in 100 sets 89x89 convolved features.
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![](/assets/Convolution_schematic.gif)
-{: refdef}
+{% endalign_center %}
 
 Formally, given some large $ r \times c $ images $ x_{large} $, we first train a sparse autoencoder on small $ a \times b $ patches $ x_{small} $ sampled from these images, learning $ k $ features $ f = \sigma(W^{(1)}x_{small} + b^{(1)}) $ (where $ \sigma $ is the sigmoid function), given by the weights $ W^{(1)} $ and biases $ b^{(1)} $ from the visible units to the hidden units. For every $ a \times b $ patch $ x_s $ in the large image, we compute $ f_s = \sigma(W^{(1)}x_s + b^{(1)}) $, giving us, a $ k \times (r - a + 1) \times (c - b + 1) $ array of convolved features.
 

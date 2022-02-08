@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://aadikuchlous.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://aadikuchlous.github.io/" rel="alternate" type="text/html" /><updated>2022-01-23T19:23:03+05:30</updated><id>https://aadikuchlous.github.io/feed.xml</id><title type="html">Verisk Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Pooling - UFLDL</title><link href="https://aadikuchlous.github.io/jekyll/update/2022/01/04/pooling-ufldl.html" rel="alternate" type="text/html" title="Pooling - UFLDL" /><published>2022-01-04T12:45:34+05:30</published><updated>2022-01-04T12:45:34+05:30</updated><id>https://aadikuchlous.github.io/jekyll/update/2022/01/04/pooling-ufldl</id><content type="html" xml:base="https://aadikuchlous.github.io/jekyll/update/2022/01/04/pooling-ufldl.html">&lt;h3 id=&quot;pooling-overview&quot;&gt;Pooling: Overview&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://aadikuchlous.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://aadikuchlous.github.io/" rel="alternate" type="text/html" /><updated>2022-02-08T17:23:08+05:30</updated><id>https://aadikuchlous.github.io/feed.xml</id><title type="html">Verisk Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Pooling - UFLDL</title><link href="https://aadikuchlous.github.io/jekyll/update/2022/01/04/pooling-ufldl.html" rel="alternate" type="text/html" title="Pooling - UFLDL" /><published>2022-01-04T12:45:34+05:30</published><updated>2022-01-04T12:45:34+05:30</updated><id>https://aadikuchlous.github.io/jekyll/update/2022/01/04/pooling-ufldl</id><content type="html" xml:base="https://aadikuchlous.github.io/jekyll/update/2022/01/04/pooling-ufldl.html">&lt;h3 id=&quot;pooling-overview&quot;&gt;Pooling: Overview&lt;/h3&gt;
 
-&lt;p&gt;After &lt;d-cite key=&quot;gregor2015draw&quot;&gt;&lt;/d-cite&gt; obtaining features using convolution, we would next like to use them for classification. In theory, one could use all the extracted features with a classifier such as a softmax classifier, but this can be computationally challenging. Consider for instance images of size 96x96 pixels, and suppose we have learned 400 features over 8x8 inputs. Each convolution results in an output of size $ (96-8+1)*(96-8+1)=7921 $, and since we have 400 features, this results in a vector of $ 89^2 * 400 = 3,168,400 $ features per example. Learning a classifier with inputs having 3+ million features can be unwieldy, and can also be prone to over-fitting.&lt;/p&gt;
+&lt;p&gt;After &lt;d-cite key=&quot;gregor2015draw &quot;&gt;&lt;/d-cite&gt; obtaining features using convolution, we would next like to use them for classification. In theory, one could use all the extracted features with a classifier such as a softmax classifier, but this can be computationally challenging. Consider for instance images of size 96x96 pixels, and suppose we have learned 400 features over 8x8 inputs. Each convolution results in an output of size $ (96-8+1)*(96-8+1)=7921 $, and since we have 400 features, this results in a vector of $ 89^2 * 400 = 3,168,400 $ features per example. Learning a classifier with inputs having 3+ million features can be unwieldy, and can also be prone to over-fitting.&lt;/p&gt;
 
 &lt;p&gt;To address this, first recall that we decided to obtain convolved features because images have the “stationarity” property, which implies that features that are useful in one region are also likely to be useful for other regions. Thus, to describe a large image, one natural approach is to aggregate statistics of these features at various locations. For example, one could compute the mean (or max) value of a particular feature over a region of the image. These summary statistics are much lower in dimension (compared to using all of the extracted features) and can also improve results (less over-fitting). We aggregation operation is called this operation ”‘pooling”’, or sometimes ”‘mean pooling”’ or ”‘max pooling”’ (depending on the pooling operation applied).&lt;/p&gt;
 
 &lt;p&gt;The following image shows how pooling is done over 4 non-overlapping regions of the image.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/assets/Pooling_schematic.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;/assets/Pooling_schematic.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;pooling-for-invariance&quot;&gt;Pooling for Invariance&lt;/h3&gt;
 
@@ -120,7 +121,8 @@ Load and process data, utility functions
 
 &lt;p&gt;Recall from &lt;a href=&quot;https://r2rt.com/recurrent-neural-networks-in-tensorflow-i.html&quot;&gt;last post&lt;/a&gt; that we represented each duplicate tensor of our RNN (e.g., the rnn inputs, rnn outputs, the predictions and the loss) as a list of tensors:&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://r2rt.com/static/images/BasicRNNLabeled.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;https://r2rt.com/static/images/BasicRNNLabeled.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This worked quite well for our toy task, because our longest dependency was 7 steps back and we never really needed to backpropagate errors more than 10 steps. Even with a word-level RNN, using lists will probably be sufficient. See, e.g., my post on &lt;a href=&quot;http://r2rt.com/styles-of-truncated-backpropagation.html&quot;&gt;Styles of Truncated Backpropagation&lt;/a&gt;, where I build a 40-step graph with no problems. But for a character-level model, 40 characters isn’t a whole lot. We might want to capture much longer dependencies. So let’s see what happens when we build a graph that is 200 time steps wide:&lt;/p&gt;
 
@@ -425,15 +427,18 @@ It took 101.60246014595032 seconds to train for 3 epochs.
 
 &lt;p&gt;By using a tuple for the state, we can also easily replace the base cell with a “MultiRNNCell” for multiple layers. To see why this works, consider that while a single cell:&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://r2rt.com/static/images/RNN_BasicRNNCell.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;https://r2rt.com/static/images/RNN_BasicRNNCell.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;looks different from a two cells stacked on top of each other:&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://r2rt.com/static/images/RNN_MultiRNNCellUngrouped.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;https://r2rt.com/static/images/RNN_MultiRNNCellUngrouped.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;we can wrap the two cells into a single two-layer cell to make them look and behave as a single cell:&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://r2rt.com/static/images/RNN_MultiRNNCellGrouped.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;https://r2rt.com/static/images/RNN_MultiRNNCellGrouped.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;To make this switch, we call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tf.nn.rnn_cell.MultiRNNCell&lt;/code&gt;, which takes a list of RNNCells as its inputs and wraps them into a single cell:&lt;/p&gt;
 
@@ -1010,7 +1015,8 @@ EXT.
 
 &lt;p&gt;To give a concrete example, suppose you have learned features on 8x8 patches sampled from a 96x96 image. Suppose further this was done with an autoencoder that has 100 hidden units. To get the convolved features, for every 8x8 region of the 96x96 image, that is, the 8x8 regions starting at $ (1,1),(1,2)\ldots(89,89) $, you would extract the 8x8 patch, and run it through your trained sparse autoencoder to get the feature activations. This would result in 100 sets 89x89 convolved features.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/assets/Convolution_schematic.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;/assets/Convolution_schematic.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Formally, given some large $ r \times c $ images $ x_{large} $, we first train a sparse autoencoder on small $ a \times b $ patches $ x_{small} $ sampled from these images, learning $ k $ features $ f = \sigma(W^{(1)}x_{small} + b^{(1)}) $ (where $ \sigma $ is the sigmoid function), given by the weights $ W^{(1)} $ and biases $ b^{(1)} $ from the visible units to the hidden units. For every $ a \times b $ patch $ x_s $ in the large image, we compute $ f_s = \sigma(W^{(1)}x_s + b^{(1)}) $, giving us, a $ k \times (r - a + 1) \times (c - b + 1) $ array of convolved features.&lt;/p&gt;
 
@@ -1024,11 +1030,13 @@ EXT.
 
 &lt;p&gt;Where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR&lt;/code&gt; is a four-digit number, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MONTH&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DAY&lt;/code&gt; are both two-digit numbers, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MARKUP&lt;/code&gt; is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/assets/test.gif&quot; alt=&quot;gif&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;/assets/test.gif&quot; alt=&quot;gif&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;$$ J_{fwd} = I(Z_{t+1}; Z_t, A_t) $$&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/assets/test1.png&quot; alt=&quot;alt test&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;/assets/test1.png&quot; alt=&quot;alt test&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
 
@@ -1038,6 +1046,7 @@ EXT.
 &lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://www.youtube.com/watch?v=Ptk_1Dc2iPY&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:center;&quot;&gt;
+&lt;img src=&quot;https://www.youtube.com/watch?v=Ptk_1Dc2iPY&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>

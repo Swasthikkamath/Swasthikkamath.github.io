@@ -112,9 +112,9 @@ Data length: 1115394
 
 Recall from [last post](https://r2rt.com/recurrent-neural-networks-in-tensorflow-i.html) that we represented each duplicate tensor of our RNN (e.g., the rnn inputs, rnn outputs, the predictions and the loss) as a list of tensors:
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![](https://r2rt.com/static/images/BasicRNNLabeled.png)
-{: refdef}
+{% endalign_center %}
 
 This worked quite well for our toy task, because our longest dependency was 7 steps back and we never really needed to backpropagate errors more than 10 steps. Even with a word-level RNN, using lists will probably be sufficient. See, e.g., my post on [Styles of Truncated Backpropagation](http://r2rt.com/styles-of-truncated-backpropagation.html), where I build a 40-step graph with no problems. But for a character-level model, 40 characters isn’t a whole lot. We might want to capture much longer dependencies. So let’s see what happens when we build a graph that is 200 time steps wide:
 
@@ -439,22 +439,22 @@ This error tells us that it’s faster to represent the LSTM state as a tuple of
 
 By using a tuple for the state, we can also easily replace the base cell with a “MultiRNNCell” for multiple layers. To see why this works, consider that while a single cell:
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![](https://r2rt.com/static/images/RNN_BasicRNNCell.png)
-{: refdef}
+{% endalign_center %}
 
 looks different from a two cells stacked on top of each other:
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![](https://r2rt.com/static/images/RNN_MultiRNNCellUngrouped.png)
-{: refdef}
+{% endalign_center %}
 
 we can wrap the two cells into a single two-layer cell to make them look and behave as a single cell:
 
 
-{:refdef: style="text-align: center;"}
+{% align_center %}
 ![](https://r2rt.com/static/images/RNN_MultiRNNCellGrouped.png)
-{: refdef}
+{% endalign_center %}
 
 To make this switch, we call `tf.nn.rnn_cell.MultiRNNCell`, which takes a list of RNNCells as its inputs and wraps them into a single cell:
 

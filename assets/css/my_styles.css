@@ -60,3 +60,10 @@ a {
 .grid-item a:hover {
   text-decoration: none;
 }
+
+.site-header {
+  top: 0px;
+  position: sticky !important;
+  background: #fdfdfd;
+  z-index: 100;
+}
