@@ -85,4 +85,4 @@ scholar:
   bibliography_template: bib
 
 max_width: 800px
-enable_project_categories: true
+enable_project_categories: false
