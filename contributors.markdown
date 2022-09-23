@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Authors
-permalink: /authors/
+title: Contributors
+permalink: /contributors/
 ---
 
 <style>
 
-.author-block {
+.contributor-block {
   height: 150px;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -62,23 +62,23 @@ permalink: /authors/
 
 </style>
 
-{% for author in site.authors %}
-{% assign filtered_posts = site.posts | where_exp: 'post', "post.authors contains author.short_name" %}
+{% for contributor in site.contributors %}
+{% assign filtered_projects = site.projects | where_exp: 'project', "project.contributors contains contributor.short_name" %}
 
-<div class="author-block">
+<div class="contributor-block">
 
   <div class="left-section">
 
     <div class="profile-pic">
-      <img src="/assets/authors/{{ author.profile_pic }}">
+      <img src="/assets/contributors/{{ contributor.profile_pic }}">
     </div>
 
-    <div onclick="window.location.href = '{{ author.url | absolute_url }}';" class="view-articles">
-      -> {{ filtered_posts.size }}
-      {% if filtered_posts.size == 1 %}
-        Article
+    <div onclick="window.location.href = '{{ contributor.url | absolute_url }}';" class="view-articles">
+      -> {{ filtered_projects.size }}
+      {% if filtered_projects.size == 1 %}
+        Project
       {% else %}
-        Articles
+        Projects
       {%- endif -%}
      </div>
 
@@ -87,11 +87,11 @@ permalink: /authors/
   <div class="text">
 
     <div class="name">
-      <a href="{{ author.url }}">{{ author.name }}</a>
+      <a href="{{ contributor.url }}">{{ contributor.name }}</a>
     </div>
 
     <div class="bio">
-      {{ author.excerpt }}
+      {{ contributor.excerpt }}
     </div>
 
   </div>

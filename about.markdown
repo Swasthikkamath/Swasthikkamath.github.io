@@ -4,4 +4,5 @@ title: About Us
 permalink: /about/
 ---
 
-This page will contain information about Verisk and the purpose of the blog. We would have links to the [Verisk website](https://www.verisk.com/), the [github repo](https://github.com/AadiKuchlous/aadikuchlous.github.io), and any other information that we would like to have.
+We are a bunch of engineers working at [Mirafra Technologies](https://www.mirafra.com). We want to make a small contribution to the semiconductor ecosystem 
+by creating industry standard IPs for popular protocols.

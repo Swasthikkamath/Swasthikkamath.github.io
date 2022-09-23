@@ -18,19 +18,17 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Verisk Blog
-email: your-email@example.com
+title: mBits
+email: mbits@mirafra.com
 
 show_excerpts: true
 
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  This is the project website for mBits - a repository of MIT-licensed open-source verification IPs.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://aadikuchlous.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "https://mbits-mirafra.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+  #twitter_username: jekyllrb
+  #github_username:  jekyll
 
 # Build settings
 theme: minima
@@ -66,25 +64,17 @@ exclude:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-# disqus_shortname: maneeshblogtest
-
 defaults:
   - scope:
       path: ""
-      type: "posts"
+      type: "contributors"
     values:
-      layout: "distill"
-      comments: true
-  - scope:
-      path: ""
-      type: "authors"
-    values:
-      layout: "author"
+      layout: "contributor"
 
 collections:
-  authors:
+  contributors:
     output: true
-    permalink: /authors/:path/
+    permalink: /contributors/:path/
   projects:
     output: true
     permalink: /projects/:path/

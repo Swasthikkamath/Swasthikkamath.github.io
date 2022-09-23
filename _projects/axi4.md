@@ -1,9 +1,10 @@
 ---
 layout: page
-title: project 1
-description: a project with a background image
-img: assets/img/12.jpg
+title: AXI4 VIP
+description: an UVM based VIP for AXI4 protocol
+img: assets/img/axi.png
 importance: 1
+contributors: Muneeb
 category: work
 ---
 
