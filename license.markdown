@@ -5,6 +5,12 @@ title: License
 layout: default
 ---
 
+<style>
+.page-content p {
+  font-size: 1em;
+}
+</style>
+
 *MIT License*
 
 Copyright (c) 2022 mbits-mirafra
