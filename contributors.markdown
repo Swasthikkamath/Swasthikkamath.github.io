@@ -6,6 +6,11 @@ permalink: /contributors/
 
 <style>
 
+.contributor-block p {
+  color: rgb(0,0,0);
+  font-size: 1em;
+}
+
 .contributor-block {
   height: 150px;
   padding-top: 30px;
