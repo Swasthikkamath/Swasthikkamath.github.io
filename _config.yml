@@ -24,7 +24,7 @@ email: mbits@mirafra.com
 show_excerpts: true
 
 description: >- # this means to ignore newlines until "baseurl:"
-  This is the project website for mBits - a repository of MIT-licensed open-source verification IPs.
+  This is the website for mBits - a repository of MIT-licensed open-source verification IPs.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://mbits-mirafra.github.io" # the base hostname & protocol for your site, e.g. http://example.com
   #twitter_username: jekyllrb
