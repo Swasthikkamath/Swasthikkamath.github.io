@@ -11,7 +11,7 @@ horizontal: true
 
 - Use a pull request to contribute your valuable work. [Link](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 
-- Pick a project to use/improve/fix. [Projects](/Projects)
+- Pick a project to use/improve/fix. [Projects](/projects)
 
 ## Coding Guidelines
 
