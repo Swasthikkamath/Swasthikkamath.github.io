@@ -27,8 +27,7 @@
               {%- if project.status %}
               <div class="project-status mt-2">
                 <span class="status-label">Status:</span>
-                <span class="status-badge status-{{ project.status | downcase | replace: ' ', '-' }}">
-                  {{ project.status }}
+                <span class="status-badge">{{ project.status }}
                 </span>
               </div>
               {%- endif %}
